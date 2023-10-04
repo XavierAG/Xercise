@@ -13,6 +13,8 @@ class Exercise(db.Model):
     description = db.Column(db.String)
     image_url = db.Column(db.String)
 
+    workout_exercises = db.relationship('WorkoutExercise', back_populates='exercise')
+
     def to_dict(self):
         return {
             'id': self.id,
