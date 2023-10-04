@@ -9,4 +9,4 @@ follows = db.Table (
 )
 
 if environment == "production":
-    friends.schema = SCHEMA
+    follows.schema = SCHEMA
