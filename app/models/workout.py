@@ -9,14 +9,11 @@ class Workout(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
     name = db.Column(db.String)
-    exercise_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('exercises.id')))
-    sets = db.Column(db.Integer)
-    repetitions = db.Column(db.Integer)
-    weight = db.Column(db.Integer)
     created_at = db.Column(db.TIMESTAMP)
 
     exercises = db.relationship('Exercise', back_populates='workouts')
     user = db.relationship('User', back_populates='workouts')
+    workout_exercises = db.relationship('WorkoutExercise', back_populates='workout')
 
     def to_dict(self):
         return {
