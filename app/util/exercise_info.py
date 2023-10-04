@@ -1,6 +1,6 @@
 exercise_categories = [
     ('barbell', 'Barbell'),
-    ('dumbell', 'Dumbell'),
+    ('dumbbell', 'Dumbbell'),
     ('machine/other', 'Machine/Other'),
     ('weighted bodyweight', 'Weighted Bodyweight'),
     ('assisted bodyweight', 'Assisted Bodyweight'),
