@@ -2,7 +2,6 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .workout import seed_workouts, undo_workouts
 from .exercise import seed_exercises, undo_exercises
-from .workout_exercise import seed_workout_exercises, undo_workout_exercises
 from .exercise_repetition import seed_exercise_repetitions, undo_exercise_repetitions
 
 
@@ -22,7 +21,6 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_exercise_repetitions()
-        undo_workout_exercises()
         undo_workouts()
         undo_exercises()
         undo_users()
@@ -30,7 +28,6 @@ def seed():
     seed_users()
     seed_exercises()
     seed_workouts()
-    seed_workout_exercises()
     seed_exercise_repetitions()
 
 
@@ -41,7 +38,6 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_exercise_repetitions()
-    undo_workout_exercises()
     undo_workouts()
     undo_exercises()
     undo_users()

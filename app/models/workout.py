@@ -12,11 +12,11 @@ class Workout(db.Model):
     created_at = db.Column(db.TIMESTAMP)
 
     users = db.relationship('User', back_populates='workouts')
-    workout_exercises = db.relationship('WorkoutExercise', back_populates='workout', cascade="all, delete")
+    exercise_repetitions = db.relationship('ExerciseRepetition', back_populates='workout', cascade="all, delete")
 
     def to_dict(self):
         created_at_iso = self.created_at.isoformat() if self.created_at else None
-        filtered_workout_exercises = [we.to_dict() for we in self.workout_exercises if we.workout_id == self.id]
+        filtered_workout_exercises = [we.to_dict() for we in self.exercise_repetitions if we.workout_id == self.id]
         return {
             "id": self.id,
             'user_id': self.user_id,
