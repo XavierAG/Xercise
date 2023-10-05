@@ -1,38 +1,73 @@
-from app.models import db, ExerciseRepetition, WorkoutExercise, Workout, environment, SCHEMA
+from app.models import db, ExerciseRepetition, Workout, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_exercise_repetitions():
-    workout_exercise1 = WorkoutExercise.query.get(1).to_dict()
-    workout_exercise2 = WorkoutExercise.query.get(2).to_dict()
-    workout_exercise3 = WorkoutExercise.query.get(3).to_dict()
 
     rep1 = ExerciseRepetition(
-        workout_exercise_id=workout_exercise1["workout_id"],
-        exercise_id=workout_exercise1["exercise_id"],
+        workout_id=1,
+        exercise_id=1,
         weight=100,
         repetitions=8
     )
     rep2 = ExerciseRepetition(
-        workout_exercise_id=workout_exercise1["workout_id"],
-        exercise_id=workout_exercise1["exercise_id"],
+        workout_id=1,
+        exercise_id=1,
         weight=90.5,
         repetitions=8
     )
     rep3 = ExerciseRepetition(
-        workout_exercise_id=workout_exercise2["workout_id"],
-        exercise_id=workout_exercise2["exercise_id"],
+        workout_id=1,
+        exercise_id=1,
         weight=80,
+        repetitions=8
+    )
+    rep4 = ExerciseRepetition(
+        workout_id=1,
+        exercise_id=2,
+        weight=60,
+        repetitions=8
+    )
+    rep5 = ExerciseRepetition(
+        workout_id=1,
+        exercise_id=2,
+        weight=55,
+        repetitions=8
+    )
+    rep6 = ExerciseRepetition(
+        workout_id=2,
+        exercise_id=2,
+        weight=55,
+        repetitions=8
+    )
+    rep7 = ExerciseRepetition(
+        workout_id=2,
+        exercise_id=1,
+        weight=60,
+        repetitions=8
+    )
+    rep8 = ExerciseRepetition(
+        workout_id=2,
+        exercise_id=1,
+        weight=55,
+        repetitions=8
+    )
+    rep9 = ExerciseRepetition(
+        workout_id=3,
+        exercise_id=1,
+        weight=55,
         repetitions=8
     )
 
     db.session.add(rep1)
     db.session.add(rep2)
     db.session.add(rep3)
+    db.session.add(rep4)
+    db.session.add(rep5)
+    db.session.add(rep6)
+    db.session.add(rep7)
+    db.session.add(rep8)
+    db.session.add(rep9)
     db.session.commit()
-    test = Workout.query.get(1).to_dict()
-    test2 = Workout.query.get(2).to_dict()
-    print("TEST", test)
-    print("TEST2", test2)
 
 
 def undo_exercise_repetitions():
