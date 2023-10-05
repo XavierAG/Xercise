@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     image_url = db.Column(db.String)
     created_at = db.Column(db.TIMESTAMP)
 
+    exercises = db.relationship("Exercise", back_populates="users", cascade="all, delete")
     workouts = db.relationship('Workout', back_populates='users', cascade="all, delete")
     followers = db.relationship(
         "User",
