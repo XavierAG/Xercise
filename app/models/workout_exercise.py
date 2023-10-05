@@ -30,8 +30,9 @@ class WorkoutExercise(db.Model):
 
     def to_dict(self):
         exercise_reps = [rep.to_dict() for rep in self.exercise_repetitions]
+        exercise_name = self.exercise.to_dict()
+
         return {
-            "workout_id": self.workout_id,
-            "exercise_id": self.exercise_id,
+            "exercise_name": exercise_name['name'],
             "exercise_reps": exercise_reps,
         }

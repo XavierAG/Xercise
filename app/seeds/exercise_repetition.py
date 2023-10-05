@@ -31,8 +31,6 @@ def seed_exercise_repetitions():
     db.session.commit()
     test = Workout.query.get(1).to_dict()
     test2 = Workout.query.get(2).to_dict()
-    print("TEST", test)
-    print("TEST2", test2)
 
 
 def undo_exercise_repetitions():

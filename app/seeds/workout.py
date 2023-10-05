@@ -3,7 +3,6 @@ from datetime import datetime
 from sqlalchemy.sql import text
 
 def seed_workouts():
-    user1 = User.query.get(1).to_dict()
     created_at = datetime.now()
 
     workout1 = Workout(
@@ -13,12 +12,12 @@ def seed_workouts():
     )
     workout2 = Workout(
         name="Midday Workout",
-        user_id=user1["id"],
+        user_id=2,
         created_at=created_at
     )
     workout3 = Workout(
         name="Evening Workout",
-        user_id=user1["id"],
+        user_id=1,
         created_at=created_at
     )
 

@@ -17,8 +17,6 @@ class ExerciseRepetition(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.id,
-            "workout_exercise_id": self.workout_exercise_id,
             "weight": self.weight,
             "repetitions": self.repetitions
         }
