@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Length, ValidationError
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from app.models import Exercise
 from app.routes.aws_helpers import ALLOWED_EXTENSIONS
-from app.utils.exercise_info import exercise_categories, body_part
+from app.util.exercise_info import exercise_categories, body_part
 
 class ExerciseForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=60)])

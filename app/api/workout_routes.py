@@ -11,6 +11,8 @@ def get_all_workouts(user_id):
     return {'workouts': [workout.to_dict() for workout in workouts]}
 
 
+# @workout_routes.route()
+
 # if request.method == 'POST':
 #         # Handle form submissions
 #         form_type = request.form.get('form_type')

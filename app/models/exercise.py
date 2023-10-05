@@ -12,8 +12,10 @@ class Exercise(db.Model):
     category = db.Column(db.String)
     description = db.Column(db.String)
     image_url = db.Column(db.String)
+    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
     exercise_repetitions = db.relationship('ExerciseRepetition', back_populates='exercise')
+    users = db.relationship('User', back_populates='exercises')
 
     def to_dict(self):
         return {
