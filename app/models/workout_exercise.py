@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .exercise import Exercise
 
 # workout_exercise = db.Table (
 #     'workout_exercises',
@@ -29,10 +30,19 @@ class WorkoutExercise(db.Model):
     exercise_repetitions = db.relationship('ExerciseRepetition', back_populates='workout_exercise', cascade="all, delete")
 
     def to_dict(self):
-        exercise_reps = [rep.to_dict() for rep in self.exercise_repetitions]
-        exercise_name = self.exercise.to_dict()
+        exercise_reps_by_exercise = {}
+        for rep in self.exercise_repetitions:
+            exercise_id = rep.exercise_id
+            if exercise_id not in exercise_reps_by_exercise:
+                exercise_reps_by_exercise[exercise_id] = []
+            exercise_reps_by_exercise[exercise_id].append(rep.to_dict())
 
-        return {
-            "exercise_name": exercise_name['name'],
-            "exercise_reps": exercise_reps,
-        }
+    # Create a list of exercise dictionaries
+        exercise_list = []
+        for exercise_id, exercise_reps in exercise_reps_by_exercise.items():
+            exercise_name = Exercise.query.get(exercise_id).to_dict()
+            exercise_list.append({
+                "exercise_name": exercise_name['name'],
+                "exercise_reps": exercise_reps,
+            })
+        return exercise_list
