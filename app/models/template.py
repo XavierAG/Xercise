@@ -13,8 +13,6 @@ class Template(db.Model):
     weight = db.Column(db.Integer)
     private = db.Column(db.Boolean)
 
-    exercise = db.relationship('Exercise', back_populates='templates')
-
     def to_dict(self):
         return {
             'id': self.id,

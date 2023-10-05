@@ -22,7 +22,6 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.TIMESTAMP)
 
     workouts = db.relationship('Workout', back_populates='users', cascade="all, delete")
-    exercises = db.relationship('Exercise', back_populates='users', cascade="all, delete")
     followers = db.relationship(
         "User",
         secondary=follows,
