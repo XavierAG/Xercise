@@ -84,7 +84,6 @@ def upgrade():
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE exercises SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE workouts SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE workout_exercises SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE exercise_repetitions SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE templates SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE followers SET SCHEMA {SCHEMA};")
