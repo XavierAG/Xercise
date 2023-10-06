@@ -8,9 +8,9 @@ const getExercises = (exercises) => ({
   exercises,
 });
 
-const postExercises = (exercises) => ({
+const postExercises = (exercise) => ({
   type: POST_EXERCISES,
-  exercises,
+  exercise,
 });
 
 const deleteExercise = (exerciseId) => ({
@@ -31,6 +31,29 @@ export const getExercisesThunk = () => async (dispatch) => {
   return data;
 };
 
+export const postExerciseThunk = (exercise, newImage) => async (dispatch) => {
+  let res;
+  if (newImage) {
+    res = await fetch("/api/exercises/", {
+      method: "POST",
+      body: exercise,
+    });
+  } else {
+    res = await fetch("/api/exercises/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(exercise),
+    });
+  }
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(postExercises(data));
+    return data;
+  } else {
+    const errors = await res.json();
+    throw errors;
+  }
+};
 const initialState = { allExercises: {} };
 
 export default function reducer(state = initialState, action) {
@@ -45,6 +68,23 @@ export default function reducer(state = initialState, action) {
           })
       );
       return { ...state, allExercises: { ...newObj } };
+    case POST_EXERCISES:
+      const newExercise = {};
+      console.log("HELLO", state.allExercises);
+      const allEx = Object.values(state.allExercises);
+      console.log("BYE", allEx);
+      allEx.map(
+        (exercise) =>
+          (newExercise[exercise.id] = {
+            ...exercise,
+          })
+      );
+      newExercise[action.exercise.id] = {
+        ...action.exercise,
+      };
+      return {
+        allEx: newExercise,
+      };
     default:
       return state;
   }

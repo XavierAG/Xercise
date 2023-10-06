@@ -15,7 +15,7 @@ def get_all_exercises():
 
 @exercise_routes.route("/", methods=["POST"])
 def create_exercise():
-    form = ExerciseForm
+    form = ExerciseForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         url = None
@@ -29,7 +29,7 @@ def create_exercise():
                 return {'errors': errors}, 400
 
             url = upload["url"]
-        new_exercise = ExerciseForm(
+        new_exercise = Exercise(
             name=form.data["name"],
             body_part=form.data["body_part"],
             category=form.data["category"],
