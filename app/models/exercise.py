@@ -24,5 +24,6 @@ class Exercise(db.Model):
             'body_part': self.body_part,
             'category': self.category,
             'description': self.description,
-            'image_url': self.image_url
+            'image_url': self.image_url,
+            'owner_id': self.owner_id
         }
