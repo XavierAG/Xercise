@@ -5,9 +5,11 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import * as exerciseActions from "../../store/exercises";
 import OpenModalButton from "../OpenModalButton";
 import ExerciseModal from "../ExerciseModal";
+import EditExerciseModal from "../EditExerciseModal";
 
 export default function ExercisesPage() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const allExercises = useSelector((state) =>
     state.exercise.allExercises ? state.exercise.allExercises : {}
   );
@@ -37,6 +39,17 @@ export default function ExercisesPage() {
               <p>{exercise.category}</p>
             </div>
             <h2>{exercise.name}</h2>
+            <div className="buttons">
+              {exercise.owner_id == sessionUser.id && (
+                <OpenModalButton
+                  className="edit-exercise"
+                  buttonText="EDIT EXERCISE"
+                  modalComponent={
+                    <EditExerciseModal exerciseId={exercise.id} />
+                  }
+                />
+              )}
+            </div>
           </div>
         ))}
     </div>

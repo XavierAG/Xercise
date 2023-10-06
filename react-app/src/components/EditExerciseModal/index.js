@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { postExerciseThunk } from "../../store/exercises";
+import { editExerciseThunk, getExcerciseThunk } from "../../store/exercises";
 import { bodyPartOptions, categoryOptions } from "../../utils/exerciseOptions";
+import OpenModalButton from "../OpenModalButton";
+import DeleteExerciseModal from "../DeleteExerciseModal";
 
-export default function ExerciseModal() {
+export default function EditExerciseModal({ exerciseId }) {
   const { closeModal } = useModal();
   const [name, setName] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
+  const singleExercise = useSelector((state) => state.exercise.singleExercise);
   const [bodyPart, setBodyPart] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [imageInput, setImageInput] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    dispatch(getExcerciseThunk(exerciseId));
+  }, [dispatch, exerciseId]);
+
+  useEffect(() => {
+    if (singleExercise) {
+      setName(singleExercise.name || "");
+      setBodyPart(singleExercise.body_part || "");
+      setCategory(singleExercise.category || "");
+      setDescription(singleExercise.description || "");
+      setImageUrl(singleExercise.image_url || "");
+    }
+  }, [singleExercise]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,21 +47,21 @@ export default function ExerciseModal() {
       data.append("category", category);
       data.append("desciprion", description);
       data.append("image_url", imageInput);
-      data.append("owner_id", sessionUser.id);
       newImage = true;
     } else {
       data = {
         name: name,
         body_part: bodyPart,
         category: category,
-        owner_id: sessionUser.id,
       };
       newImage = false;
     }
     let createdExercise;
     try {
       setImageLoading(true);
-      createdExercise = await dispatch(postExerciseThunk(data, newImage));
+      createdExercise = await dispatch(
+        editExerciseThunk(exerciseId, data, newImage)
+      );
       console.log("NEW EXERCISE", createdExercise);
       history.push(`/exercises/${createdExercise.id}`);
       closeModal();
@@ -64,7 +82,7 @@ export default function ExerciseModal() {
 
   return (
     <div>
-      <h2>Create Exercise</h2>
+      <h2>Edit Exercise</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="exercise-name">
           <h3>Exercise Name</h3>
@@ -108,7 +126,7 @@ export default function ExerciseModal() {
                 setCategory(e.target.value);
               }}
             >
-              <option value="">Select Category</option>
+              <option value="">Select Body Part</option>
               {categoryOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -118,30 +136,39 @@ export default function ExerciseModal() {
             {errors.category && <p className="error-text">{errors.category}</p>}
           </div>
         </div>
+        {errors.image ? (
+          <label className="error-text" htmlFor="name">
+            {errors.image}
+          </label>
+        ) : (
+          <label className="exercise-image-load" htmlFor="name">
+            Exercise Image
+          </label>
+        )}
         <div className="image_url">
           <input
             type="file"
             accept="image/*"
             name="image_url"
-            onChange={(e) => setImageInput(e.target.files[0])}
+            onChange={(e) => {
+              setImageInput(e.target.files[0]);
+              setImageUrl(null);
+            }}
           />
+          {imageUrl ? <p>Old Image: {imageUrl}</p> : <div />}
           {imageLoading && <p className="exercise-image-load">LOADING...</p>}
-          {errors.image ? (
-            <label className="error-text" htmlFor="name">
-              {errors.image}
-            </label>
-          ) : (
-            <label className="exercise-image-load" htmlFor="name">
-              EXERCISE IMAGE
-            </label>
-          )}
         </div>
         <button className="cancel-create-exercise" onClick={closeModal}>
           Cancel
         </button>
         <button className="create-exercise-button" type="submit">
-          Create
+          Edit
         </button>
+        <OpenModalButton
+          className="delete-exercise-button"
+          buttonText="Delete"
+          modalComponent={<DeleteExerciseModal exerciseId={exerciseId} />}
+        />
       </form>
     </div>
   );

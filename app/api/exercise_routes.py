@@ -13,6 +13,13 @@ def get_all_exercises():
     exercises = Exercise.query.all()
     return {"exercises": [exercise.to_dict() for exercise in exercises]}
 
+@exercise_routes.route("/<int:exercise_id>", methods=["GET"])
+def get_exercise_details(exercise_id):
+    exercise = Exercise.query.get(exercise_id)
+    if exercise:
+        exercise_data = exercise.to_dict()
+        return {"exercise": exercise_data}
+
 @exercise_routes.route("/", methods=["POST"])
 def create_exercise():
     form = ExerciseForm()
@@ -89,7 +96,7 @@ def edit_exercise(exercise_id):
 def delete_exercise(exercise_id):
 
     exercise = Exercise.query.get(exercise_id)
-    if exercise in None:
+    if exercise is None:
         return {"errors" : "Exercise not found"}, 404
 
     if exercise.owner_id == current_user.id:

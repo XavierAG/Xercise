@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import ExercisesPage from "./components/ExercisesPage";
+import WorkoutPage from "./components/WorkoutPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ function App() {
           </Route>
           <Route path="/exercises/:exercise_id">
             <ExercisesPage />
+          </Route>
+          <Route path="/workouts">
+            <WorkoutPage />
           </Route>
         </Switch>
       )}
