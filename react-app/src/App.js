@@ -28,6 +28,9 @@ function App() {
           <Route path="/exercises">
             <ExercisesPage />
           </Route>
+          <Route path="/exercises/:exercise_id">
+            <ExercisesPage />
+          </Route>
         </Switch>
       )}
     </>
