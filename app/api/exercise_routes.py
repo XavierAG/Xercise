@@ -21,6 +21,7 @@ def get_exercise_details(exercise_id):
         return {"exercise": exercise_data}
 
 @exercise_routes.route("/", methods=["POST"])
+@login_required
 def create_exercise():
     form = ExerciseForm()
     form['csrf_token'].data = request.cookies['csrf_token']

@@ -74,7 +74,7 @@ export default function ExerciseModal() {
             onChange={(e) => {
               setName(e.target.value);
             }}
-            placeholder="Workout Name"
+            placeholder="Exercise Name"
           />
           <div className="error-container">
             {errors.name && <p className="error-text">{errors.name}</p>}
