@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import exercise from "./exercises";
+import workout from "./workouts";
 
 const rootReducer = combineReducers({
   session,
   exercise,
+  workout,
 });
 
 let enhancer;

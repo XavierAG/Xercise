@@ -61,15 +61,6 @@ export const postExerciseThunk = (exercise, newImage) => async (dispatch) => {
   }
 };
 
-export const deleteExerciseThunk = (exerciseId) => async (dispatch) => {
-  const res = await fetch(`/api/exercises/${exerciseId}`, {
-    method: "DELETE",
-  });
-  const data = await res.json();
-  dispatch(deleteExercise(exerciseId));
-  return data;
-};
-
 export const editExerciseThunk =
   (exerciseId, exercise, newImage) => async (dispatch) => {
     let res;
@@ -95,6 +86,15 @@ export const editExerciseThunk =
       throw errors;
     }
   };
+
+export const deleteExerciseThunk = (exerciseId) => async (dispatch) => {
+  const res = await fetch(`/api/exercises/${exerciseId}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  dispatch(deleteExercise(exerciseId));
+  return data;
+};
 
 const initialState = { allExercises: {}, singleExercise: {} };
 

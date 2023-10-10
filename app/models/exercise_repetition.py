@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .exercise import Exercise
 
 class ExerciseRepetition(db.Model):
     __tablename__ = 'exercise_repetitions'
@@ -16,8 +17,11 @@ class ExerciseRepetition(db.Model):
     workout = db.relationship('Workout', back_populates='exercise_repetitions')
 
     def to_dict(self):
+        exercise = Exercise.query.get(self.exercise_id)
+        ex_name = exercise.name
         return {
             "workout_id": self.workout_id,
+            "exercise_name": ex_name,
             "exercise_id": self.exercise_id,
             "weight": self.weight,
             "repetitions": self.repetitions
