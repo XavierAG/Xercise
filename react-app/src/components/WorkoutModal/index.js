@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import * as exerciseActions from "../../store/exercises";
 import { useModal } from "../../context/Modal";
 import { getWorkoutsThunk, postWorkoutThunk } from "../../store/workouts";
 import { postExerciseRepetitions } from "../../store/reps";
@@ -12,6 +13,11 @@ export default function WorkoutModal() {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
+  const allExercises = useSelector((state) =>
+    state.exercise.allExercises ? state.exercise.allExercises : {}
+  );
+  const exercises = Object.values(allExercises);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [repetitions, setRepetitions] = useState([]);
   const handleAddRepetition = () => {
@@ -20,6 +26,9 @@ export default function WorkoutModal() {
       { exercise_id: "", weight: "", repetitions: "" },
     ]);
   };
+  useEffect(() => {
+    dispatch(exerciseActions.getExercisesThunk()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
@@ -73,13 +82,18 @@ export default function WorkoutModal() {
         </div>
         {repetitions.map((repetition, index) => (
           <div key={index}>
-            <input
-              type="number"
+            <select
               name="exercise_id"
-              placeholder="Exercise ID"
               value={repetition.exercise_id}
               onChange={(e) => handleInputChange(index, e)}
-            />
+            >
+              <option value="">Select an exercise</option>
+              {exercises.map((exercise) => (
+                <option key={exercise.id} value={exercise.id}>
+                  {exercise.name}
+                </option>
+              ))}
+            </select>
             <input
               type="number"
               name="weight"

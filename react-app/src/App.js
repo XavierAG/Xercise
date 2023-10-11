@@ -10,6 +10,7 @@ import LandingPage from "./components/LandingPage";
 import ExerciseDetailPage from "./components/ExerciseDetailPage";
 import WorkoutDetailPage from "./components/WorkoutDetailPage";
 import Navigation from "./components/Navigation";
+import EditWorkoutForm from "./components/EditWorkoutForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,6 +43,9 @@ function App() {
         </Route>
         <Route exact path="/workouts/:workoutId">
           <WorkoutDetailPage />
+        </Route>
+        <Route exact path="/workouts/:workoutId/edit">
+          <EditWorkoutForm />
         </Route>
       </Switch>
     </>
