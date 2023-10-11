@@ -74,21 +74,21 @@ export default function WorkoutModal() {
         {repetitions.map((repetition, index) => (
           <div key={index}>
             <input
-              type="text"
+              type="number"
               name="exercise_id"
               placeholder="Exercise ID"
               value={repetition.exercise_id}
               onChange={(e) => handleInputChange(index, e)}
             />
             <input
-              type="text"
+              type="number"
               name="weight"
               placeholder="Weight"
               value={repetition.weight}
               onChange={(e) => handleInputChange(index, e)}
             />
             <input
-              type="text"
+              type="number"
               name="repetitions"
               placeholder="Repetitions"
               value={repetition.repetitions}
