@@ -20,41 +20,42 @@ export default function WorkoutPage() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="workouts-container-full">
       <div className="create-workout-button">
         <OpenModalButton
           className="create-workout"
-          buttonText="CREATE WORKOUT"
+          buttonText="CREATE NEW WORKOUT"
           modalComponent={<WorkoutModal />}
         />
       </div>
-      {workouts.length &&
-        workouts.map((workout) => (
-          <div className="workout-container">
-            <OpenModalButton
-              className="workout-view-modal"
-              buttonText={
-                <div className="top-car-workouts">
-                  <h1>{workout.name}</h1>
-                  <OpenModalButton
-                    className="view-workout"
-                    buttonText="..."
-                    modalComponent={<WorkoutModal />}
-                  />
-                </div>
-              }
-            />
-            {workout.workout_exercises &&
-              workout.workout_exercises.map((rep) => (
-                <div>
-                  <p>{rep.exercise_name}</p>
-                  <p>{rep.weight}</p>
-                  <p>{rep.repetitions}</p>
-                </div>
-              ))}
-            <p>{workout.created_at}</p>
-          </div>
-        ))}
+      <div className="workouts-container">
+        {workouts.length &&
+          workouts.map((workout) => (
+            <NavLink
+              className="nav-to-workout"
+              exact
+              to={`/workouts/${workout.id}`}
+            >
+              <div className="top-card-workouts">
+                <h1>{workout.name}</h1>
+              </div>
+              <p>{workout.created_at}</p>
+              <div className="workout-top-bar-main">
+                <p className="workout-name-main">name</p>
+                <p className="workout-weight-main">lbs</p>
+                <p className="workout-reps-main">reps</p>
+              </div>
+              {workout.workout_exercises &&
+                workout.workout_exercises.map((rep) => (
+                  <div className="workout-ex-detail-main">
+                    <p className="workout-name-main">{rep.exercise_name}</p>
+                    <p className="workout-weight-main">{rep.weight}</p>
+                    <p className="workout-reps-main">{rep.repetitions}</p>
+                  </div>
+                ))}
+            </NavLink>
+          ))}
+      </div>
     </div>
   );
 }

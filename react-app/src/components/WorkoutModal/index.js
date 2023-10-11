@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { getWorkoutsThunk, postWorkoutThunk } from "../../store/workouts";
+import { postExerciseRepetitions } from "../../store/reps";
 
 export default function WorkoutModal() {
   const { closeModal } = useModal();
@@ -12,6 +13,21 @@ export default function WorkoutModal() {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
+  const [repetitions, setRepetitions] = useState([]);
+  const handleAddRepetition = () => {
+    setRepetitions([
+      ...repetitions,
+      { exercise_id: "", weight: "", repetitions: "" },
+    ]);
+  };
+
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
+    const updatedRepetitions = [...repetitions];
+    updatedRepetitions[index][name] = value;
+    setRepetitions(updatedRepetitions);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -19,8 +35,23 @@ export default function WorkoutModal() {
     };
 
     const createdWorkout = await dispatch(postWorkoutThunk(data));
-    dispatch(getWorkoutsThunk());
-    closeModal();
+    if (createdWorkout) {
+      let rep;
+      console.log("CREATED WORK", createdWorkout);
+      for (rep of repetitions) {
+        console.log("REPS", rep);
+        const repdata = {
+          workout_id: createdWorkout.id,
+          exercise_id: rep.exercise_id,
+          weight: rep.weight,
+          repetitions: rep.repetitions,
+        };
+        console.log("REPDATA", repdata);
+        dispatch(postExerciseRepetitions(repdata));
+      }
+      dispatch(getWorkoutsThunk());
+      closeModal();
+    }
   };
 
   return (
@@ -40,10 +71,36 @@ export default function WorkoutModal() {
             {errors.name && <p className="error-text">{errors.name}</p>}
           </div>
         </div>
+        {repetitions.map((repetition, index) => (
+          <div key={index}>
+            <input
+              type="text"
+              name="exercise_id"
+              placeholder="Exercise ID"
+              value={repetition.exercise_id}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+            <input
+              type="text"
+              name="weight"
+              placeholder="Weight"
+              value={repetition.weight}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+            <input
+              type="text"
+              name="repetitions"
+              placeholder="Repetitions"
+              value={repetition.repetitions}
+              onChange={(e) => handleInputChange(index, e)}
+            />
+          </div>
+        ))}
         <button className="create-workout-button" type="submit">
           Create
         </button>
       </form>
+      <button onClick={handleAddRepetition}>Add Repetition</button>
     </div>
   );
 }

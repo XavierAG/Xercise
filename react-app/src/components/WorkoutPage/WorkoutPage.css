@@ -1,0 +1,68 @@
+.nav-to-workout {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    flex-basis: 33.33%;
+    text-decoration: none;
+    color: black;
+    height: 300px;
+    overflow: auto;
+    align-items: center;
+}
+.nav-to-workout::-webkit-scrollbar {
+    width: 0.1em;
+}
+
+.nav-to-workout::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+.nav-to-workout:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.workouts-container {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px;
+    justify-content: center;
+}
+.workouts-container-full {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+.workout-ex-detail-main {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    width: 260px;
+}
+.workout-top-bar-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 5px;
+    width: 260px;
+}
+
+.workout-name-main {
+    display: flex;
+    margin: 20px;
+    flex: 1;
+}
+.workout-weight-main {
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+    flex: 1;
+}
+.workout-reps-main {
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+    flex: 1;
+}

@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import ExerciseRepetition
 
 class ExerciseRepetitionForm(FlaskForm):
+    workout_id = IntegerField('Workout_id', validators=[DataRequired()])
     exercise_id = IntegerField('Exercise_id', validators=[DataRequired()])
-    weight = IntegerField('Weight', valdators=[DataRequired()])
-    repetitions = IntegerField('Repetitions', valdators=[DataRequired()])
+    weight = IntegerField('Weight', validators=[DataRequired()])
+    repetitions = IntegerField('Repetitions', validators=[DataRequired()])

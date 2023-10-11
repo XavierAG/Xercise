@@ -24,14 +24,14 @@ const getExercise = (exercise) => ({
 });
 
 export const getExercisesThunk = () => async (dispatch) => {
-  const res = await fetch("api/exercises");
+  const res = await fetch("/api/exercises");
   const data = await res.json();
   dispatch(getExercises(data));
   return data;
 };
 
 export const getExcerciseThunk = (exerciseId) => async (dispatch) => {
-  const res = await fetch(`api/exercises/${exerciseId}`);
+  const res = await fetch(`/api/exercises/${exerciseId}`);
   const data = await res.json();
   dispatch(getExercise(data));
   return data;
