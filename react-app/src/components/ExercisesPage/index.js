@@ -22,7 +22,6 @@ export default function ExercisesPage() {
 
   return (
     <div className="exercises-container">
-      <h1>HEllO</h1>
       <div className="create-exercise-cont">
         <OpenModalButton
           className="create-exercise"

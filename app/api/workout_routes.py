@@ -57,9 +57,7 @@ def create_workout():
 @login_required
 def edit_workout(workout_id):
     form = WorkoutForm()
-    form2 = ExerciseRepetitionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form2['csrf_token'].data = request.cookies['csrf_token']
     workout = Workout.query.get(workout_id)
 
     if workout is None:

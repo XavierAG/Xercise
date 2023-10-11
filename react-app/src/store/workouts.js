@@ -24,7 +24,7 @@ const getWorkout = (workout) => ({
 });
 
 export const getWorkoutsThunk = () => async (dispatch) => {
-  const res = await fetch("api/workouts");
+  const res = await fetch("/api/workouts");
   const data = await res.json();
   dispatch(getWorkouts(data));
   console.log(data);
@@ -32,14 +32,14 @@ export const getWorkoutsThunk = () => async (dispatch) => {
 };
 
 export const getWorkoutThunk = (exerciseId) => async (dispatch) => {
-  const res = await fetch(`api/workouts/${exerciseId}`);
+  const res = await fetch(`/api/workouts/${exerciseId}`);
   const data = await res.json();
   dispatch(getWorkout(data));
   return data;
 };
 
 export const postWorkoutThunk = (workout) => async (dispatch) => {
-  const res = await fetch("api/workouts/", {
+  const res = await fetch("/api/workouts/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(workout),
