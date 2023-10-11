@@ -22,39 +22,44 @@ export default function WorkoutPage() {
   return (
     <div className="workouts-container-full">
       <div className="create-workout-button">
-        <OpenModalButton
-          className="create-workout"
-          buttonText="CREATE NEW WORKOUT"
-          modalComponent={<WorkoutModal />}
-        />
+        {sessionUser && (
+          <OpenModalButton
+            className="create-workout"
+            buttonText="CREATE NEW WORKOUT"
+            modalComponent={<WorkoutModal />}
+          />
+        )}
       </div>
       <div className="workouts-container">
-        {workouts.length &&
-          workouts.map((workout) => (
-            <NavLink
-              className="nav-to-workout"
-              exact
-              to={`/workouts/${workout.id}`}
-            >
-              <div className="top-card-workouts">
-                <h1>{workout.name}</h1>
-              </div>
-              <p>{workout.created_at}</p>
-              <div className="workout-top-bar-main">
-                <p className="workout-name-main">name</p>
-                <p className="workout-weight-main">lbs</p>
-                <p className="workout-reps-main">reps</p>
-              </div>
-              {workout.workout_exercises &&
-                workout.workout_exercises.map((rep) => (
-                  <div className="workout-ex-detail-main">
-                    <p className="workout-name-main">{rep.exercise_name}</p>
-                    <p className="workout-weight-main">{rep.weight}</p>
-                    <p className="workout-reps-main">{rep.repetitions}</p>
-                  </div>
-                ))}
-            </NavLink>
-          ))}
+        {sessionUser &&
+          workouts.length &&
+          workouts
+            .filter((workout) => workout.user_id == sessionUser.id)
+            .map((workout) => (
+              <NavLink
+                className="nav-to-workout"
+                exact
+                to={`/workouts/${workout.id}`}
+              >
+                <div className="top-card-workouts">
+                  <h1>{workout.name}</h1>
+                </div>
+                <p>{workout.created_at}</p>
+                <div className="workout-top-bar-main">
+                  <p className="workout-name-main">name</p>
+                  <p className="workout-weight-main">lbs</p>
+                  <p className="workout-reps-main">reps</p>
+                </div>
+                {workout.workout_exercises &&
+                  workout.workout_exercises.map((rep) => (
+                    <div className="workout-ex-detail-main">
+                      <p className="workout-name-main">{rep.exercise_name}</p>
+                      <p className="workout-weight-main">{rep.weight}</p>
+                      <p className="workout-reps-main">{rep.repetitions}</p>
+                    </div>
+                  ))}
+              </NavLink>
+            ))}
       </div>
     </div>
   );
