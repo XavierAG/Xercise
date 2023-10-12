@@ -43,7 +43,7 @@ export default function WorkoutPage() {
                 to={`/workouts/${workout.id}`}
               >
                 <div className="top-card-workouts">
-                  <h1>{workout.name}</h1>
+                  <h1 className="name-workout-page">{workout.name}</h1>
                 </div>
                 <p>{workout.created_at}</p>
                 <div className="workout-top-bar-main">

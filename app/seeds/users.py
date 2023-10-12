@@ -13,7 +13,11 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password', created_at=created_at)
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password', created_at=created_at)
+    xercisedemo = User (
+        username='xercise', email='xercisedemo@gmail.com', password='xercisepassword', created_at=created_at
+    )
 
+    db.session.add(xercisedemo)
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)

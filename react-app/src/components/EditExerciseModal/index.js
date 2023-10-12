@@ -65,6 +65,7 @@ export default function EditExerciseModal({ exerciseId }) {
       );
       console.log("NEW EXERCISE", createdExercise);
       history.push(`/exercises/${createdExercise.id}`);
+      dispatch(getExcerciseThunk(exerciseId));
       closeModal();
     } catch (errRes) {
       setImageLoading(false);
