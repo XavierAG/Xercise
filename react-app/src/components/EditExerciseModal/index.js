@@ -53,6 +53,7 @@ export default function EditExerciseModal({ exerciseId }) {
         name: name,
         body_part: bodyPart,
         category: category,
+        description: description,
       };
       newImage = false;
     }
@@ -135,6 +136,20 @@ export default function EditExerciseModal({ exerciseId }) {
             </select>
             {errors.category && <p className="error-text">{errors.category}</p>}
           </div>
+        </div>
+        <h3>Description</h3>
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          placeholder="Description"
+        />
+        <div className="error-container">
+          {errors.description && (
+            <p className="error-text">{errors.description}</p>
+          )}
         </div>
         {errors.image ? (
           <label className="error-text" htmlFor="name">

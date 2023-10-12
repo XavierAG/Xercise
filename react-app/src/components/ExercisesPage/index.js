@@ -27,33 +27,39 @@ export default function ExercisesPage() {
         {sessionUser && (
           <OpenModalButton
             className="create-exercise"
-            buttonText="CREATE EXERCISE"
+            buttonText="CREATE NEW EXERCISE"
             modalComponent={<ExerciseModal />}
           />
         )}
       </div>
-      {exercises.length &&
-        exercises.map((exercise) => (
-          <div className="exercise-container" key={exercise.id}>
-            <img src={exercise.image_url}></img>
-            <div>
-              <p>{exercise.body_part}</p>
-              <p>{exercise.category}</p>
-            </div>
-            <h2>{exercise.name}</h2>
-            <div className="buttons">
-              {sessionUser && exercise.owner_id == sessionUser.id && (
-                <OpenModalButton
-                  className="edit-exercise"
-                  buttonText="EDIT EXERCISE"
-                  modalComponent={
-                    <EditExerciseModal exerciseId={exercise.id} />
-                  }
-                />
+      <div className="exercise-container">
+        {exercises.length &&
+          exercises.map((exercise) => (
+            <NavLink
+              className="map-exercise"
+              exact
+              to={`/exercises/${exercise.id}`}
+            >
+              <h1 className="exercise-name">{exercise.name}</h1>
+              {exercise.image_url ? (
+                <img className="exercise-img" src={exercise.image_url}></img>
+              ) : (
+                <div className="no-img">
+                  <h1>No Image!</h1>
+                </div>
               )}
-            </div>
-          </div>
-        ))}
+
+              <div className="part-category">
+                <div>
+                  <p>{exercise.body_part}</p>
+                </div>
+                <div>
+                  <p>{exercise.category}</p>
+                </div>
+              </div>
+            </NavLink>
+          ))}
+      </div>
     </div>
   );
 }

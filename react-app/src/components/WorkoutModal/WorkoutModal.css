@@ -1,0 +1,129 @@
+.workout-modal-full{
+    display: flex;
+    width: 500px;
+    height: 600px;
+    padding: 20px;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+}
+.workout-modal-full::-webkit-scrollbar{
+    width: 0.1em;
+}
+.workout-modal-full::-webkit-scrollbar-thumb{
+    background-color: transparent;
+}
+.workout-modal-form {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    width: 400px;
+
+}
+.workout-set-bar {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+.workout-set-bar h1{
+    margin: 6px 6px 6px 0px;
+}
+.workout-set-bar input{
+    margin: 6px 6px 6px 0px;
+}
+.add-set-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-set-button button{
+    width: 200px;
+    height: 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.add-exercise-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-exercise-button button{
+    margin-top: 20px;
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: lightgray;
+}
+.cancel-workout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cancel-workout-button button{
+    margin-top: 20px;
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: lightcoral;
+}
+.create-workout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.create-workout-button button{
+    margin-top: 20px;
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: lightgray;
+}
+
+.exercise-options {
+    display: flex;
+    width: 400px;
+    justify-content: center;
+    align-items: center;
+}
+.exercise-options select {
+    width: 300px;
+    height: 30px;
+    border-radius: 6px;
+}
+
+.workout-name-page {
+    display: flex;
+    width: 400px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px 20px 0px;
+}
+.workout-name-page input {
+    width: 292px;
+    height: 30px;
+    border-radius: 6px;
+}
+.index {
+    margin-right: 20px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 6px;
+}
+
+.inputs-workout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 60px;
+    height: 40px;
+}
+.inputs-workout input {
+   width: 60px;
+   border-radius: 6px;
+   padding-left: 5px;
+}
