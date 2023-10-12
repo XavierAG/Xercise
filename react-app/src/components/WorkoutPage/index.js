@@ -21,7 +21,7 @@ export default function WorkoutPage() {
 
   return (
     <div className="workouts-container-full">
-      <div className="create-workout-button">
+      <div className="create-workout-button-main">
         {sessionUser && (
           <OpenModalButton
             className="create-workout"
