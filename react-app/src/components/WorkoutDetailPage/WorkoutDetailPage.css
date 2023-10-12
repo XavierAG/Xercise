@@ -40,7 +40,7 @@
     border-radius: 20px;
 }
 .workout-detail-full {
-    width:800px;
+    width:900px;
     padding: 20px;
     margin: auto;
     display: flex;
@@ -58,4 +58,8 @@
     align-items: center;
     text-decoration: none;
     color: black;
+}
+.workout-detail h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

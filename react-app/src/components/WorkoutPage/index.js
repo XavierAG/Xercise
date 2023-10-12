@@ -35,6 +35,7 @@ export default function WorkoutPage() {
           workouts.length &&
           workouts
             .filter((workout) => workout.user_id == sessionUser.id)
+            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             .map((workout) => (
               <NavLink
                 className="nav-to-workout"
