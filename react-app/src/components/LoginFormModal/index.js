@@ -17,8 +17,14 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal();
     }
+  };
+  const demoUser = async () => {
+    const email = "xercisedemo@gmail.com";
+    const password = "xercisepassword";
+    dispatch(login(email, password));
+    closeModal();
   };
 
   return (
@@ -50,6 +56,9 @@ function LoginFormModal() {
         </label>
         <button type="submit">Log In</button>
       </form>
+      <button className="button" onClick={demoUser}>
+        Demo User
+      </button>
     </>
   );
 }
