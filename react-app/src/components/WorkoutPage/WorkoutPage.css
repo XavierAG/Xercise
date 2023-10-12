@@ -70,3 +70,13 @@
 .name-workout-page {
     margin: 0px 10px 10px 10px;
 }
+
+.create-workout-button-main button{
+    margin-top: 20px;
+    width: 600px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: rgba(222, 69, 49, 0.5);
+    cursor: pointer;
+}
