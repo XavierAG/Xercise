@@ -18,7 +18,6 @@ export default function ExerciseDetailPage() {
   );
   const { exerciseId } = useParams();
   const exercises = Object.values(allExercises);
-  const single = Object.values(singleExercise);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -30,27 +29,39 @@ export default function ExerciseDetailPage() {
     <>
       <div className="single-exercise">
         <div className="exercise-detail-left">
-          <img src={singleExercise.image_url}></img>
+          <img
+            className="exercise-img-single"
+            src={singleExercise.image_url}
+          ></img>
         </div>
         <div className="exercise-detail-right">
-          <h1>{singleExercise.name}</h1>
-          <p>{singleExercise.description}</p>
-          <p>
-            {singleExercise.body_part}
-            {"  "}
-            {singleExercise.category}
-          </p>
+          <div className="single-top-right">
+            <h1>{singleExercise.name}</h1>
+            <div className="buttons">
+              {sessionUser && singleExercise.owner_id == sessionUser.id && (
+                <OpenModalButton
+                  className="edit-exercise"
+                  buttonText="EDIT EXERCISE"
+                  modalComponent={
+                    <EditExerciseModal exerciseId={singleExercise.id} />
+                  }
+                />
+              )}
+            </div>
+          </div>
+          <div className="single-description">
+            <p>{singleExercise.description}</p>
+          </div>
+          <div className="body-category-single">
+            <p>{singleExercise.body_part}</p>
+          </div>
+          <div className="body-category-single">
+            <p>{singleExercise.category}</p>
+          </div>
         </div>
       </div>
-      <div className="exercises-container">
-        <div className="create-exercise-cont">
-          <OpenModalButton
-            className="create-exercise"
-            buttonText="CREATE EXERCISE"
-            modalComponent={<ExerciseModal />}
-          />
-        </div>
-        <h1>OTHER EXERCISES</h1>
+      <div className="single-exercises-container">
+        <h1 className="other-exercises">OTHER EXERCISES</h1>
         {exercises.length &&
           exercises
             .filter((exercise) => exercise.id !== singleExercise.id)
@@ -62,17 +73,6 @@ export default function ExerciseDetailPage() {
                   <p>{exercise.category}</p>
                 </div>
                 <h2>{exercise.name}</h2>
-                <div className="buttons">
-                  {exercise.owner_id == sessionUser.id && (
-                    <OpenModalButton
-                      className="edit-exercise"
-                      buttonText="EDIT EXERCISE"
-                      modalComponent={
-                        <EditExerciseModal exerciseId={exercise.id} />
-                      }
-                    />
-                  )}
-                </div>
               </div>
             ))}
       </div>
