@@ -26,19 +26,35 @@ export default function WorkoutModal() {
 
   const [repetitions, setRepetitions] = useState([]);
   const [iMap, setIMap] = useState({});
-  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [wMap, setWMap] = useState({});
+  const [selectedExercises, setSelectedExercises] = useState(null);
   useEffect(() => {
-    if (selectedExercise) {
-      setI(iMap[selectedExercise] || 0);
+    if (selectedExercises) {
+      setI(iMap[selectedExercises] || 0);
     }
-  }, [selectedExercise, iMap]);
+  }, [selectedExercises, iMap]);
 
-  const handleAddSet = ({ id, i }) => {
-    setIMap((prevMap) => ({
+  useEffect(() => {
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+
+    if (currentHour >= 4 && currentHour < 10) {
+      setName("Morning Workout");
+    } else if (currentHour >= 10 && currentHour < 13) {
+      setName("Midday Workout");
+    } else if (currentHour >= 13 && currentHour < 17) {
+      setName("Afternoon Workout");
+    } else {
+      setName("Nighttime Workout");
+    }
+  }, []);
+
+  const handleAddSet = async ({ id, i }) => {
+    await setIMap((prevMap) => ({
       ...prevMap,
       [id]: i + 1,
     }));
-    console.log("WHAT NOW", iMap);
+
     setRepetitions([
       ...repetitions,
       { exercise_id: id, weight: "", repetitions: "", newIndex: i },
@@ -46,10 +62,10 @@ export default function WorkoutModal() {
   };
 
   const handleExerciseSelect = (exercise) => {
-    setSelectedExercise(exercise.target.value);
+    setSelectedExercises(exercise.target.value);
   };
   const handleExerciseSelectagain = (exercise) => {
-    setSelectedExercise(exercise);
+    setSelectedExercises(exercise);
   };
 
   useEffect(() => {
@@ -65,6 +81,10 @@ export default function WorkoutModal() {
     const selectedValue = e.target.value;
     setSingleExercise(selectedValue);
     addExerciseToWorkout(selectedValue);
+    setWMap((prevMap) => ({
+      ...prevMap,
+      [selectedValue]: 1,
+    }));
   };
   const addExerciseToWorkout = (e) => {
     setAddExercises([...addExercises, { exercise_id: e }]);
@@ -118,12 +138,12 @@ export default function WorkoutModal() {
       <form className="workout-modal-form" onSubmit={handleSubmit}>
         <div className="workout-name-page">
           <input
+            className="workout-name-create"
             type="text"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
             }}
-            placeholder="Workout Name"
           />
           <div className="error-container">
             {errors.name && <p className="error-text">{errors.name}</p>}
@@ -193,15 +213,25 @@ export default function WorkoutModal() {
                       )
                     )}
                   <div className="add-set-button">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        // handleExerciseSelect(selectedExercise.id);
-                        handleAddSet({ id: selectedExercise.id, i: i });
-                      }}
-                    >
-                      Add Set
-                    </button>
+                    {selectedExercises == selectedExercise.id ? (
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await handleAddSet({ id: selectedExercise.id, i: i });
+                        }}
+                      >
+                        Add Set
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setSelectedExercises(selectedExercise.id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    )}
                   </div>
                 </div>
               );
@@ -217,11 +247,13 @@ export default function WorkoutModal() {
               }}
             >
               <option value="">Select an exercise</option>
-              {exercises.map((exercise) => (
-                <option key={exercise.id} value={exercise.id}>
-                  {exercise.name}
-                </option>
-              ))}
+              {exercises
+                .filter((exercise) => !wMap[exercise.id])
+                .map((exercise) => (
+                  <option key={exercise.id} value={exercise.id}>
+                    {exercise.name}
+                  </option>
+                ))}
             </select>
           </div>
         )}
@@ -230,13 +262,15 @@ export default function WorkoutModal() {
             Add Exercise
           </button>
         </div>
-        {name ? (
+        {repetitions.some(
+          (rep) => rep.exercise_id && rep.weight && rep.repetitions
+        ) ? (
           <div className="create-workout-button">
             <button type="submit">Create</button>
           </div>
         ) : (
           <div className="cancel-workout-button">
-            <button>Cancel</button>
+            <button onClick={closeModal}>Cancel</button>
           </div>
         )}
       </form>

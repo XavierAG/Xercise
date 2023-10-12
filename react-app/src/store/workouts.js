@@ -57,7 +57,8 @@ export const postWorkoutThunk = (workout) => async (dispatch) => {
 export const editWorkoutThunk = (workoutId, workout) => async (dispatch) => {
   const res = await fetch(`/api/workouts/${workoutId}`, {
     method: "PUT",
-    body: workout,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(workout),
   });
   if (res.ok) {
     const data = await res.json();

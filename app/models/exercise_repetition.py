@@ -20,6 +20,7 @@ class ExerciseRepetition(db.Model):
         exercise = Exercise.query.get(self.exercise_id)
         ex_name = exercise.name
         return {
+            "id": self.id,
             "workout_id": self.workout_id,
             "exercise_name": ex_name,
             "exercise_id": self.exercise_id,

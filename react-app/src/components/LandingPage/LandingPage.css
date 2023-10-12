@@ -1,0 +1,31 @@
+.landing-page {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+.mascot {
+    width: 600px;
+}
+.right-landing {
+    flex-basis: 40%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.left-landing {
+    max-width: 600px;
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.landing-name {
+    margin-bottom: 40px;
+    width: 600px;
+}
