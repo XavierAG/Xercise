@@ -4,7 +4,7 @@ exercise_categories = [
     ('machine/other', 'Machine/Other'),
     ('weighted bodyweight', 'Weighted Bodyweight'),
     ('assisted bodyweight', 'Assisted Bodyweight'),
-    ('peps only', 'Reps Only'),
+    ('reps only', 'Reps Only'),
     ('cardio', 'Cardio'),
     ('duration', 'duration')
 ]
