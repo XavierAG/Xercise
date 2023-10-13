@@ -15,11 +15,17 @@ function Navigation({ isLoaded }) {
           <img alt="logo" className="landing-nav-logo" src={logo} />
         </NavLink>
         <NavLink className="nav-nav" exact to="/exercises">
-          Exercises
+          <div className="button-wrapper">
+            <div className="button-top">Exercises</div>
+            <div className="button-outline"></div>
+          </div>
         </NavLink>
         {sessionUser && (
           <NavLink className="nav-nav" exact to="/workouts">
-            Workouts
+            <div className="button-wrapper">
+              <div className="button-top">Workouts</div>
+              <div className="button-outline"></div>
+            </div>
           </NavLink>
         )}
       </li>

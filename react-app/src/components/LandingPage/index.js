@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import mascot from "../../assets/images/mascot.png";
 import "./LandingPage.css";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 export default function LandingPage() {
   const sessionUser = useSelector((state) => state.session.user);
 

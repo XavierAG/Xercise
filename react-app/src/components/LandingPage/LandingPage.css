@@ -29,3 +29,33 @@
     margin-bottom: 40px;
     width: 600px;
 }
+.button-top {
+    padding: 16px 32px 16px 32px;
+    background-color: rgba(222, 69, 49);
+    text-decoration: none;
+    color: white;
+    position: relative;
+    border-radius: 6px;
+    z-index: 1;
+    transition:0.3s;
+}
+.button-link {
+    text-decoration: none;
+}
+.button-top:hover {
+    transform: translate(6px, 6px);
+}
+.button-outline {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    border: 2px rgba(222, 69, 49) solid;
+    border-radius: 6px;
+    background-color: white;
+
+}
+.button-wrapper {
+    position: relative;
+}
