@@ -92,6 +92,7 @@
     height: 30px;
     border-radius: 8px;
     background-color: lightgray;
+    cursor: pointer;
 }
 
 .exercise-options {

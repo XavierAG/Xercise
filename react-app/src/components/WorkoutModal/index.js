@@ -64,9 +64,6 @@ export default function WorkoutModal() {
   const handleExerciseSelect = (exercise) => {
     setSelectedExercises(exercise.target.value);
   };
-  const handleExerciseSelectagain = (exercise) => {
-    setSelectedExercises(exercise);
-  };
 
   useEffect(() => {
     dispatch(exerciseActions.getExercisesThunk()).then(() => setIsLoaded(true));
