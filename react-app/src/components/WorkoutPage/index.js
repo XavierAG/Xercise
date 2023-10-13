@@ -32,7 +32,7 @@ export default function WorkoutPage() {
       </div>
       <div className="workouts-container">
         {sessionUser &&
-          workouts.length &&
+          workouts.length > 0 &&
           workouts
             .filter((workout) => workout.user_id == sessionUser.id)
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
