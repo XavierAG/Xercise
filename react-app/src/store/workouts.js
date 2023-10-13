@@ -24,7 +24,7 @@ const getWorkout = (workout) => ({
 });
 
 export const getWorkoutsThunk = () => async (dispatch) => {
-  const res = await fetch("/api/workouts");
+  const res = await fetch("/api/workouts/");
   const data = await res.json();
   dispatch(getWorkouts(data));
   console.log(data);
