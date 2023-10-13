@@ -27,7 +27,9 @@
     flex-basis: 25%;
     text-decoration: none;
     color: black;
-    height: 514px;
+    max-height: 520px;
+    min-height: 520px;
+    max-width: 492px;
     align-items: center;
 }
 .map-exercise:hover{
@@ -69,6 +71,10 @@
 
 .exercise-name {
     margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
 }
 .no-img {
     width: 400px;

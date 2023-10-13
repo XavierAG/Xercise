@@ -21,22 +21,35 @@ export default function ExerciseDetailPage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(exerciseActions.getExcerciseThunk(exerciseId));
     dispatch(exerciseActions.getExercisesThunk()).then(() => setIsLoaded(true));
+    dispatch(exerciseActions.getExcerciseThunk(exerciseId));
   }, [dispatch, exerciseId]);
 
   return (
     <>
       <div className="single-exercise">
         <div className="exercise-detail-left">
-          <img
-            className="exercise-img-single"
-            src={singleExercise.image_url}
-          ></img>
+          {singleExercise.image_url ? (
+            <img
+              className="exercise-img-single"
+              src={singleExercise.image_url}
+            ></img>
+          ) : (
+            <div className="no-img">
+              <h1>No Image!</h1>
+            </div>
+          )}
         </div>
         <div className="exercise-detail-right">
           <div className="single-top-right">
-            <h1>{singleExercise.name}</h1>
+            {singleExercise.category == "barbell" ||
+            singleExercise.category === "dumbbell" ? (
+              <h1 className="exercise-name-single">
+                {singleExercise.name} ({singleExercise.category})
+              </h1>
+            ) : (
+              <h1 className="exercise-name-single">{singleExercise.name}</h1>
+            )}
             <div className="buttons">
               {sessionUser && singleExercise.owner_id == sessionUser.id && (
                 <OpenModalButton
@@ -60,20 +73,44 @@ export default function ExerciseDetailPage() {
           </div>
         </div>
       </div>
-      <div className="single-exercises-container">
+      <div className="other-exercises-h1">
         <h1 className="other-exercises">OTHER EXERCISES</h1>
+      </div>
+      <div className="exercise-container">
         {exercises.length &&
           exercises
             .filter((exercise) => exercise.id !== singleExercise.id)
             .map((exercise) => (
-              <div className="exercise-container" key={exercise.id}>
-                <img src={exercise.image_url}></img>
-                <div>
-                  <p>{exercise.body_part}</p>
-                  <p>{exercise.category}</p>
+              <NavLink
+                className="map-exercise"
+                exact
+                to={`/exercises/${exercise.id}`}
+              >
+                {exercise.category == "barbell" ||
+                exercise.category === "dumbbell" ? (
+                  <h1 className="exercise-name">
+                    {exercise.name} ({exercise.category})
+                  </h1>
+                ) : (
+                  <h1 className="exercise-name">{exercise.name}</h1>
+                )}
+                {exercise.image_url ? (
+                  <img className="exercise-img" src={exercise.image_url}></img>
+                ) : (
+                  <div className="no-img">
+                    <h1>No Image!</h1>
+                  </div>
+                )}
+
+                <div className="part-category">
+                  <div>
+                    <p>{exercise.body_part}</p>
+                  </div>
+                  <div>
+                    <p>{exercise.category}</p>
+                  </div>
                 </div>
-                <h2>{exercise.name}</h2>
-              </div>
+              </NavLink>
             ))}
       </div>
     </>

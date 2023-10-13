@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { editExerciseThunk, getExcerciseThunk } from "../../store/exercises";
+import {
+  editExerciseThunk,
+  getExcerciseThunk,
+  getExercisesThunk,
+} from "../../store/exercises";
 import { bodyPartOptions, categoryOptions } from "../../utils/exerciseOptions";
 import OpenModalButton from "../OpenModalButton";
 import DeleteExerciseModal from "../DeleteExerciseModal";
@@ -63,9 +67,9 @@ export default function EditExerciseModal({ exerciseId }) {
       createdExercise = await dispatch(
         editExerciseThunk(exerciseId, data, newImage)
       );
-      console.log("NEW EXERCISE", createdExercise);
       history.push(`/exercises/${createdExercise.id}`);
-      dispatch(getExcerciseThunk(exerciseId));
+      dispatch(getExercisesThunk());
+      dispatch(getExcerciseThunk(createdExercise.id));
       closeModal();
     } catch (errRes) {
       setImageLoading(false);

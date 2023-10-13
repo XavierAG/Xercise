@@ -14,7 +14,7 @@ class Exercise(db.Model):
     image_url = db.Column(db.String)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
-    exercise_repetitions = db.relationship('ExerciseRepetition', back_populates='exercise')
+    exercise_repetitions = db.relationship('ExerciseRepetition', back_populates='exercise', cascade='all, delete-orphan')
     users = db.relationship('User', back_populates='exercises')
 
     def to_dict(self):
