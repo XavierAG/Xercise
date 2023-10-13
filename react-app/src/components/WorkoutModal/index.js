@@ -174,7 +174,7 @@ export default function WorkoutModal() {
                     workoutRepetitions[selectedExercise.id].map(
                       (repetition, index) => (
                         <div className="inputs-workout" key={index}>
-                          <div className="index">{repetition.newIndex}</div>
+                          <div className="index">{repetition.newIndex + 1}</div>
                           <div>
                             <input
                               type="number"
