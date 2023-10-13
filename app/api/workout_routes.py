@@ -7,9 +7,10 @@ from datetime import datetime
 
 workout_routes = Blueprint('workouts', __name__)
 
-@workout_routes.route('/', methods=['GET'])
+@workout_routes.route('', methods=['GET'])
 def get_all_workouts():
-    workouts = Workout.query.filter_by(user_id=1).all()
+    print("CURRENT USER", current_user)
+    workouts = Workout.query.filter_by(user_id=current_user.id).all()
     return {'workouts': [workout.to_dict() for workout in workouts]}
 
 
