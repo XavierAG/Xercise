@@ -41,6 +41,7 @@
     height: 30px;
     border-radius: 8px;
     margin-top: 20px;
+    cursor: pointer;
 }
 .add-exercise-button {
     display: flex;
@@ -53,6 +54,7 @@
     height: 30px;
     border-radius: 8px;
     background-color: lightgray;
+    cursor: pointer;
 }
 .exercise-options {
     display: flex;
@@ -77,6 +79,7 @@
     height: 30px;
     border-radius: 8px;
     background-color: lightcoral;
+    cursor: pointer;
 }
 .create-workout-button {
     display: flex;
