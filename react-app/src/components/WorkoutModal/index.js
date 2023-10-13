@@ -6,7 +6,6 @@ import { useModal } from "../../context/Modal";
 import { getWorkoutsThunk, postWorkoutThunk } from "../../store/workouts";
 import { postExerciseRepetitions } from "../../store/reps";
 import "./WorkoutModal.css";
-import OpenModalButton from "../OpenModalButton";
 
 export default function WorkoutModal() {
   const { closeModal } = useModal();
@@ -284,20 +283,7 @@ export default function WorkoutModal() {
           (rep) => rep.exercise_id && rep.weight && rep.repetitions
         ) ? (
           <div className="create-workout-button">
-            <OpenModalButton
-              buttonText="Create"
-              type="button"
-              modalComponent={
-                <div>
-                  <h3>Finish Workout?</h3>
-                  <p>All invalid or empty sets will be removed</p>
-                  <div>
-                    <button onClick={closeModal}>Cancel</button>{" "}
-                    <button type="submit">Finish</button>
-                  </div>
-                </div>
-              }
-            />
+            <button type="submit">Create</button>
           </div>
         ) : (
           <div className="cancel-workout-button">
