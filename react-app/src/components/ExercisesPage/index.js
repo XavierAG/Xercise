@@ -5,6 +5,7 @@ import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import * as exerciseActions from "../../store/exercises";
 import OpenModalButton from "../OpenModalButton";
 import ExerciseModal from "../ExerciseModal";
+import mascot from "../../assets/images/mascot.png";
 import EditExerciseModal from "../EditExerciseModal";
 
 export default function ExercisesPage() {
@@ -33,7 +34,7 @@ export default function ExercisesPage() {
         )}
       </div>
       <div className="exercise-container">
-        {exercises.length &&
+        {exercises.length > 0 &&
           exercises.map((exercise) => (
             <NavLink
               className="map-exercise"
@@ -44,9 +45,7 @@ export default function ExercisesPage() {
               {exercise.image_url ? (
                 <img className="exercise-img" src={exercise.image_url}></img>
               ) : (
-                <div className="no-img">
-                  <h1>No Image!</h1>
-                </div>
+                <img className="exercise-img" src={mascot}></img>
               )}
 
               <div className="part-category">

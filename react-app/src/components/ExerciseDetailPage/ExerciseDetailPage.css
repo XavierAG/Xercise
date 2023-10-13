@@ -19,6 +19,7 @@
     display: flex;
     width: 600px;
     flex-direction: column;
+    height: 600px;
 }
 .exercise-detail-right h1 {
     margin-top: 10px;
@@ -57,4 +58,8 @@
   overflow: hidden;
   max-width: 100%;
   overflow-wrap: break-word;
+}
+
+.single-full-page {
+    margin-top: 60px;
 }
