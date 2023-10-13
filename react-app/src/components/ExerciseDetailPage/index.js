@@ -5,6 +5,7 @@ import * as exerciseActions from "../../store/exercises";
 import OpenModalButton from "../OpenModalButton";
 import ExerciseModal from "../ExerciseModal";
 import EditExerciseModal from "../EditExerciseModal";
+import mascot from "../../assets/images/mascot.png";
 import "./ExerciseDetailPage.css";
 
 export default function ExerciseDetailPage() {
@@ -25,8 +26,11 @@ export default function ExerciseDetailPage() {
     dispatch(exerciseActions.getExcerciseThunk(exerciseId));
   }, [dispatch, exerciseId]);
 
+  function scrollToTop() {
+    window.scrollTo(0, 0);
+  }
   return (
-    <>
+    <div className="single-full-page">
       <div className="single-exercise">
         <div className="exercise-detail-left">
           {singleExercise.image_url ? (
@@ -35,9 +39,7 @@ export default function ExerciseDetailPage() {
               src={singleExercise.image_url}
             ></img>
           ) : (
-            <div className="no-img">
-              <h1>No Image!</h1>
-            </div>
+            <img className="exercise-img-single" src={mascot}></img>
           )}
         </div>
         <div className="exercise-detail-right">
@@ -77,7 +79,7 @@ export default function ExerciseDetailPage() {
         <h1 className="other-exercises">OTHER EXERCISES</h1>
       </div>
       <div className="exercise-container">
-        {exercises.length &&
+        {exercises.length > 0 &&
           exercises
             .filter((exercise) => exercise.id !== singleExercise.id)
             .map((exercise) => (
@@ -85,6 +87,7 @@ export default function ExerciseDetailPage() {
                 className="map-exercise"
                 exact
                 to={`/exercises/${exercise.id}`}
+                onClick={() => scrollToTop()}
               >
                 {exercise.category == "barbell" ||
                 exercise.category === "dumbbell" ? (
@@ -113,6 +116,6 @@ export default function ExerciseDetailPage() {
               </NavLink>
             ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -6,6 +6,7 @@ import { useModal } from "../../context/Modal";
 import { getWorkoutsThunk, postWorkoutThunk } from "../../store/workouts";
 import { postExerciseRepetitions } from "../../store/reps";
 import "./WorkoutModal.css";
+import OpenModalButton from "../OpenModalButton";
 
 export default function WorkoutModal() {
   const { closeModal } = useModal();
@@ -45,7 +46,7 @@ export default function WorkoutModal() {
     } else if (currentHour >= 13 && currentHour < 17) {
       setName("Afternoon Workout");
     } else {
-      setName("Nighttime Workout");
+      setName("Night Workout");
     }
   }, []);
 
@@ -170,6 +171,17 @@ export default function WorkoutModal() {
               return (
                 <div className="workout-set-bar">
                   <h1 key={selectedExercise.id}>{selectedExercise.name}</h1>
+                  <div className="inputs-workout">
+                    <div>
+                      <p>sets</p>
+                    </div>
+                    <div>
+                      <p className="weight-column">weight</p>
+                    </div>
+                    <div>
+                      <p className="rep-column">reps</p>
+                    </div>
+                  </div>
                   {workoutRepetitions[selectedExercise.id] &&
                     workoutRepetitions[selectedExercise.id].map(
                       (repetition, index) => (
@@ -237,7 +249,7 @@ export default function WorkoutModal() {
               );
             })}
         </div>
-        {showExerciseOptions && (
+        {showExerciseOptions ? (
           <div className="exercise-options">
             <select
               name="exercise_id"
@@ -256,17 +268,36 @@ export default function WorkoutModal() {
                 ))}
             </select>
           </div>
+        ) : (
+          <div>
+            {(!wMap || exercises.some((exercise) => !wMap[exercise.id])) && (
+              <div className="add-exercise-button">
+                <button type="button" onClick={handleAddExercise}>
+                  Add Exercise
+                </button>
+              </div>
+            )}
+          </div>
         )}
-        <div className="add-exercise-button">
-          <button type="button" onClick={handleAddExercise}>
-            Add Exercise
-          </button>
-        </div>
+
         {repetitions.some(
           (rep) => rep.exercise_id && rep.weight && rep.repetitions
         ) ? (
           <div className="create-workout-button">
-            <button type="submit">Create</button>
+            <OpenModalButton
+              buttonText="Create"
+              type="button"
+              modalComponent={
+                <div>
+                  <h3>Finish Workout?</h3>
+                  <p>All invalid or empty sets will be removed</p>
+                  <div>
+                    <button onClick={closeModal}>Cancel</button>{" "}
+                    <button type="submit">Finish</button>
+                  </div>
+                </div>
+              }
+            />
           </div>
         ) : (
           <div className="cancel-workout-button">

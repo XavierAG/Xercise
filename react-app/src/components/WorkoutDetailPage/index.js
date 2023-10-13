@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import OpenModalButton from "../OpenModalButton";
 import * as workoutActions from "../../store/workouts";
-import WorkoutModal from "../WorkoutModal";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import "./WorkoutDetailPage.css";
+import { OpenModalButton } from "../OpenModalButton";
 
 export default function WorkoutDetailPage() {
   const dispatch = useDispatch();
