@@ -100,9 +100,7 @@ export default function ExerciseDetailPage() {
                 {exercise.image_url ? (
                   <img className="exercise-img" src={exercise.image_url}></img>
                 ) : (
-                  <div className="no-img">
-                    <h1>No Image!</h1>
-                  </div>
+                  <img className="exercise-img" src={mascot}></img>
                 )}
 
                 <div className="part-category">
