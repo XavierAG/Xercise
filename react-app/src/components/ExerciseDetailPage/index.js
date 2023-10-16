@@ -55,8 +55,8 @@ export default function ExerciseDetailPage() {
             <div className="buttons">
               {sessionUser && singleExercise.owner_id == sessionUser.id && (
                 <OpenModalButton
-                  className="edit-exercise"
-                  buttonText="EDIT EXERCISE"
+                  className="edit-exercise-modal-button"
+                  buttonText={<i className="fas fa-pen"></i>}
                   modalComponent={
                     <EditExerciseModal exerciseId={singleExercise.id} />
                   }

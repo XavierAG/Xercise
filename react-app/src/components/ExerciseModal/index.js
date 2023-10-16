@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { postExerciseThunk } from "../../store/exercises";
 import { bodyPartOptions, categoryOptions } from "../../utils/exerciseOptions";
+import "./ExerciseModal.css";
 
 export default function ExerciseModal() {
   const { closeModal } = useModal();
@@ -27,7 +28,7 @@ export default function ExerciseModal() {
       data.append("name", name);
       data.append("body_part", bodyPart);
       data.append("category", category);
-      data.append("desciprion", description);
+      data.append("description", description);
       data.append("image_url", imageInput);
       data.append("owner_id", sessionUser.id);
       newImage = true;
@@ -63,11 +64,15 @@ export default function ExerciseModal() {
   };
 
   return (
-    <div>
+    <div className="create-exercise-form">
       <h2>Create Exercise</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form
+        className="actual-ex-form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <div className="exercise-name">
-          <h3>Exercise Name</h3>
+          <label>Exercise Name</label>
           <input
             type="text"
             value={name}
@@ -76,13 +81,13 @@ export default function ExerciseModal() {
             }}
             placeholder="Exercise Name"
           />
-          <div className="error-container">
-            {errors.name && <p className="error-text">{errors.name}</p>}
-          </div>
+        </div>
+        <div className="error-container">
+          {errors.name && <p className="error-text">{errors.name}</p>}
         </div>
         <div className="select-fields">
-          <div>
-            <p>Body Part</p>
+          <div className="body-part">
+            <label>Body Part</label>
             <select
               value={bodyPart}
               onChange={(e) => {
@@ -96,12 +101,10 @@ export default function ExerciseModal() {
                 </option>
               ))}
             </select>
-            {errors.body_part && (
-              <p className="error-text">{errors.body_part}</p>
-            )}
           </div>
-          <div>
-            <p>Category</p>
+          {errors.body_part && <p className="error-text">{errors.body_part}</p>}
+          <div className="category">
+            <label>Category</label>
             <select
               value={category}
               onChange={(e) => {
@@ -115,10 +118,11 @@ export default function ExerciseModal() {
                 </option>
               ))}
             </select>
-            {errors.category && <p className="error-text">{errors.category}</p>}
           </div>
+          {errors.category && <p className="error-text">{errors.category}</p>}
         </div>
         <div className="image_url">
+          <label>Exercise Image</label>
           <input
             type="file"
             accept="image/*"
@@ -126,21 +130,12 @@ export default function ExerciseModal() {
             onChange={(e) => setImageInput(e.target.files[0])}
           />
           {imageLoading && <p className="exercise-image-load">LOADING...</p>}
-          {errors.image ? (
-            <label className="error-text" htmlFor="name">
-              {errors.image}
-            </label>
-          ) : (
-            <label className="exercise-image-load" htmlFor="name">
-              EXERCISE IMAGE
-            </label>
-          )}
         </div>
-        <button className="cancel-create-exercise" onClick={closeModal}>
-          Cancel
-        </button>
         <button className="create-exercise-button" type="submit">
           Create
+        </button>
+        <button className="cancel-create-exercise" onClick={closeModal}>
+          Cancel
         </button>
       </form>
     </div>

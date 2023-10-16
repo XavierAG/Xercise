@@ -6,6 +6,7 @@ import { deleteExerciseThunk, getExcerciseThunk } from "../../store/exercises";
 import * as exerciseActions from "../../store/exercises";
 import OpenModalButton from "../OpenModalButton";
 import EditExerciseModal from "../EditExerciseModal";
+import "./DeleteExerciseModal.css";
 
 export default function DeleteExerciseModal({ exerciseId }) {
   const { closeModal } = useModal();
@@ -35,15 +36,15 @@ export default function DeleteExerciseModal({ exerciseId }) {
   };
 
   return (
-    <div>
+    <div className="delete-exercise-modal">
       <h1>Delete {name}?</h1>
       <div>
         <OpenModalButton
-          className="edit-exercise"
+          className="cancel-delete-exercise"
           buttonText="Cancel"
           modalComponent={<EditExerciseModal exerciseId={exerciseId} />}
         />
-        <button className="delete-exercise-button" onClick={handleDelete}>
+        <button className="confirm-delete-exercise" onClick={handleDelete}>
           Delete
         </button>
       </div>
