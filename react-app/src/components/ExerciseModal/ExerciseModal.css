@@ -1,0 +1,75 @@
+.create-exercise-form {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+.exercise-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.body-part {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.actual-ex-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.create-exercise-button {
+    margin-top: 20px;
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: lightgray;
+    font-size: 16px;
+    cursor: pointer;
+}
+.cancel-create-exercise {
+    margin-top: 20px;
+    width: 400px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: rgba(222, 69, 49);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.create-exercise-form .error-text{
+    margin-bottom: 10px;
+}
+.exercise-name input {
+    width: 150px;
+    border-radius: 6px;
+    padding-left: 5px;
+}
+.create-exercise-form select {
+    width: 150px;
+    border-radius: 6px;
+    padding-left: 5px;
+}
+.create-exercise-form .image_url {
+    display: flex;
+    justify-content: space-between;
+}
+.body-part {
+    margin-bottom: 20px;
+}
+.category {
+    margin-bottom: 20px;
+}

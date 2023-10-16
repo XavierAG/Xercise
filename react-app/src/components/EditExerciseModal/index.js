@@ -10,6 +10,7 @@ import {
 import { bodyPartOptions, categoryOptions } from "../../utils/exerciseOptions";
 import OpenModalButton from "../OpenModalButton";
 import DeleteExerciseModal from "../DeleteExerciseModal";
+import "./EditExerciseModal.css";
 
 export default function EditExerciseModal({ exerciseId }) {
   const { closeModal } = useModal();
@@ -87,11 +88,15 @@ export default function EditExerciseModal({ exerciseId }) {
   };
 
   return (
-    <div>
+    <div className="edit-exercise-modal">
       <h2>Edit Exercise</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form
+        className="actual-ex-form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <div className="exercise-name">
-          <h3>Exercise Name</h3>
+          <label>Exercise Name</label>
           <input
             type="text"
             value={name}
@@ -100,12 +105,12 @@ export default function EditExerciseModal({ exerciseId }) {
             }}
             placeholder="Workout Name"
           />
-          <div className="error-container">
-            {errors.name && <p className="error-text">{errors.name}</p>}
-          </div>
+        </div>
+        <div className="error-container">
+          {errors.name && <p className="error-text">{errors.name}</p>}
         </div>
         <div className="select-fields">
-          <div>
+          <div className="body-part">
             <p>Body Part</p>
             <select
               value={bodyPart}
@@ -120,11 +125,9 @@ export default function EditExerciseModal({ exerciseId }) {
                 </option>
               ))}
             </select>
-            {errors.body_part && (
-              <p className="error-text">{errors.body_part}</p>
-            )}
           </div>
-          <div>
+          {errors.body_part && <p className="error-text">{errors.body_part}</p>}
+          <div className="category">
             <p>Category</p>
             <select
               value={category}
@@ -139,11 +142,11 @@ export default function EditExerciseModal({ exerciseId }) {
                 </option>
               ))}
             </select>
-            {errors.category && <p className="error-text">{errors.category}</p>}
           </div>
+          {errors.category && <p className="error-text">{errors.category}</p>}
         </div>
-        <h3>Description</h3>
-        <input
+        <label>Description</label>
+        <textarea
           type="text"
           value={description}
           onChange={(e) => {
@@ -175,17 +178,24 @@ export default function EditExerciseModal({ exerciseId }) {
               setImageUrl(null);
             }}
           />
-          {imageUrl ? <p>Old Image: {imageUrl}</p> : <div />}
+          {imageUrl ? (
+            <p>
+              Old Image:{" "}
+              <img className="old-img-edit-exercise" src={imageUrl}></img>
+            </p>
+          ) : (
+            <div />
+          )}
           {imageLoading && <p className="exercise-image-load">LOADING...</p>}
         </div>
         <button className="cancel-create-exercise" onClick={closeModal}>
           Cancel
         </button>
         <button className="create-exercise-button" type="submit">
-          Edit
+          Confirm
         </button>
         <OpenModalButton
-          className="delete-exercise-button"
+          className="delete-exercise-button-main"
           buttonText="Delete"
           modalComponent={<DeleteExerciseModal exerciseId={exerciseId} />}
         />
