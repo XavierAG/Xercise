@@ -16,6 +16,7 @@ export default function WorkoutModal() {
   const [singleExercise, setSingleExercise] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
+  const [confirmSubmit, setConfirmSubmit] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
   const allExercises = useSelector((state) =>
     state.exercise.allExercises ? state.exercise.allExercises : {}
@@ -59,6 +60,12 @@ export default function WorkoutModal() {
       ...repetitions,
       { exercise_id: id, weight: "", repetitions: "", newIndex: i },
     ]);
+  };
+  const handleConfirm = (e) => {
+    setConfirmSubmit(true);
+  };
+  const cancelConfirm = (e) => {
+    setConfirmSubmit(false);
   };
 
   const handleExerciseSelect = (exercise) => {
@@ -186,7 +193,8 @@ export default function WorkoutModal() {
                           <div>
                             <input
                               type="number"
-                              min={0}
+                              min={0.01}
+                              step="any"
                               name="weight"
                               placeholder="Weight"
                               value={repetition.weight}
@@ -203,7 +211,7 @@ export default function WorkoutModal() {
                           <div>
                             <input
                               type="number"
-                              min={0}
+                              min={1}
                               name="repetitions"
                               placeholder="Reps"
                               value={repetition.repetitions}
@@ -259,7 +267,10 @@ export default function WorkoutModal() {
                 .filter((exercise) => !wMap[exercise.id])
                 .map((exercise) => (
                   <option key={exercise.id} value={exercise.id}>
-                    {exercise.name}
+                    {exercise.category === "barbell" ||
+                    exercise.category === "dumbbell"
+                      ? `${exercise.name} (${exercise.category})`
+                      : exercise.name}
                   </option>
                 ))}
             </select>
@@ -280,7 +291,34 @@ export default function WorkoutModal() {
           (rep) => rep.exercise_id && rep.weight && rep.repetitions
         ) ? (
           <div className="create-workout-button">
-            <button type="submit">Create</button>
+            {confirmSubmit && (
+              <div className="workout-create-container">
+                <p className="error-text">
+                  Any empty or incomplete sets will be removed confirm?
+                </p>
+                <div className="confirm-cancel-workout">
+                  <button
+                    className="cancel-create"
+                    type="button"
+                    onClick={cancelConfirm}
+                  >
+                    Cancel
+                  </button>
+                  <button className="confirm-create" type="submit">
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            )}
+            {!confirmSubmit && (
+              <button
+                className="create-workout-button-a"
+                cratype="button"
+                onClick={handleConfirm}
+              >
+                Create
+              </button>
+            )}
           </div>
         ) : (
           <div className="cancel-workout-button">

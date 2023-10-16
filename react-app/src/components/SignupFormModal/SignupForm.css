@@ -1,0 +1,32 @@
+.signup-modal {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.signup-modal-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+.signup-form-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 200px;
+    margin-top: 10px;
+}
+.signup-form-inputs input {
+    border-radius: 6px;
+}
+.submit-button-modal {
+    width: 120px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+}

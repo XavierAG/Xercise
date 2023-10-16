@@ -10,8 +10,8 @@ class ExerciseRepetition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     workout_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('workouts.id')))
     exercise_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('exercises.id')))
-    weight = db.Column(db.Float)  # You may want to use Float or Decimal for weight
-    repetitions = db.Column(db.Integer)
+    weight = db.Column(db.Float)
+    repetitions = db.Column(db.Float)
 
     exercise = db.relationship('Exercise', foreign_keys=[exercise_id], back_populates='exercise_repetitions')
     workout = db.relationship('Workout', back_populates='exercise_repetitions')

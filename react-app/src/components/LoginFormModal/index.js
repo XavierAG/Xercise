@@ -10,6 +10,13 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  let errorsObj = {};
+  if (errors.length) {
+    errors.forEach((err) => {
+      const [key, val] = err.split(" : ");
+      errorsObj[key] = val;
+    });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,38 +35,51 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="login-modal">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
+        <div className="login-modal-form">
+          <div className="full-input">
+            <div className="login-form-inputs">
+              <label>Email</label>
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="error-container">
+              {errorsObj.email && (
+                <p className="error-text">{errorsObj.email}</p>
+              )}
+            </div>
+          </div>
+          <div className="full-input">
+            <div className="login-form-inputs">
+              <label>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="error-container">
+              {errorsObj.password && (
+                <p className="error-text">{errorsObj.password}</p>
+              )}
+            </div>
+          </div>
+          <button className="submit-button-modal" type="submit">
+            Log In
+          </button>
+        </div>
       </form>
-      <button className="button" onClick={demoUser}>
+      <button className="demo-modal-button" onClick={demoUser}>
         Demo User
       </button>
-    </>
+    </div>
   );
 }
 

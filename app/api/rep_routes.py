@@ -11,6 +11,7 @@ rep_routes = Blueprint('reps', __name__)
 def create_exercise_reps():
     form = ExerciseRepetitionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("REP BACKEND DATA", request.form)
 
     if form.validate_on_submit():
         new_rep = ExerciseRepetition(

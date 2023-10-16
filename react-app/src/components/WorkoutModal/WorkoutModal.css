@@ -42,6 +42,7 @@
     border-radius: 8px;
     margin-top: 20px;
     cursor: pointer;
+    font-size: 16px;
 }
 .add-exercise-button {
     display: flex;
@@ -54,6 +55,7 @@
     height: 30px;
     border-radius: 8px;
     background-color: lightgray;
+    font-size: 16px;
     cursor: pointer;
 }
 .exercise-options {
@@ -78,7 +80,9 @@
     width: 400px;
     height: 30px;
     border-radius: 8px;
-    background-color: lightcoral;
+    background-color: rgba(222, 69, 49);
+    color: white;
+    font-size: 16px;
     cursor: pointer;
 }
 .create-workout-button {
@@ -86,12 +90,35 @@
     justify-content: center;
     align-items: center;
 }
-.create-workout-button button{
+.create-workout-button-a{
     margin-top: 20px;
     width: 400px;
     height: 30px;
     border-radius: 8px;
     background-color: lightgray;
+    font-size: 16px;
+    cursor: pointer;
+}
+.confirm-cancel-workout {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+.confirm-cancel-workout .cancel-create{
+    width: 180px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: rgba(222, 69, 49);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.confirm-cancel-workout .confirm-create{
+    width: 180px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: lightgray;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -161,4 +188,7 @@ select option{
 }
 .weight-column {
     padding-right: 10px;
+}
+.workout-create-container p{
+    margin: 6px 0px 6px 0px;
 }
