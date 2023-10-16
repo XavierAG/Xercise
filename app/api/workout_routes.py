@@ -40,14 +40,6 @@ def create_workout():
         )
         db.session.add(new_workout)
         db.session.commit()
-        # new_reps = ExerciseRepetition(
-        #     workout_id=new_workout.id,
-        #     exercise_id=data["repetition"]["exercise_id"],
-        #     weight=data["repetition"]["weight"],
-        #     repetitions=data["repetition"]["repetitions"]
-        # )
-        # db.session.add(new_reps)
-        # db.session.commit()
 
         return new_workout.to_dict()
     else:

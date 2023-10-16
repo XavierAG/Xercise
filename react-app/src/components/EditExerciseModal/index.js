@@ -49,7 +49,7 @@ export default function EditExerciseModal({ exerciseId }) {
       data.append("name", name);
       data.append("body_part", bodyPart);
       data.append("category", category);
-      data.append("desciprion", description);
+      data.append("description", description);
       data.append("image_url", imageInput);
       newImage = true;
     } else {
@@ -132,7 +132,7 @@ export default function EditExerciseModal({ exerciseId }) {
                 setCategory(e.target.value);
               }}
             >
-              <option value="">Select Body Part</option>
+              <option value="">Select Category</option>
               {categoryOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}

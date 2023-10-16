@@ -44,6 +44,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
+        created_at_iso = self.created_at.isoformat() if self.created_at else None
         return {
             'id': self.id,
             'username': self.username,
@@ -53,5 +54,5 @@ class User(db.Model, UserMixin):
             'height': self.height,
             'weight': self.weight,
             'image_url': self.image_url,
-            'created_at': self.created_at.isoformat()
+            'created_at': created_at_iso
         }
