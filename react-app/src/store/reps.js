@@ -18,8 +18,17 @@ export const postExerciseRepetitions = (rep) => async (dispatch) => {
 export const editRepThunk = (repId, rep) => async (dispatch) => {
   const res = await fetch(`/api/reps/${repId}`, {
     method: "PUT",
-    body: rep,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(rep),
   });
+  if (res.ok) {
+    const data = await res.json();
+    return data;
+  } else {
+    const errors = await res.json();
+    console.log("EDIT ERRORS", errors);
+    throw errors;
+  }
   // if (res.ok) {
   //   const data = await res.json();
   //   dispatch(postReps(data));

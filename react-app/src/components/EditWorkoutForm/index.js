@@ -10,6 +10,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import "./EditWorkoutForm.css";
+import { editRepThunk } from "../../store/reps";
 
 export default function EditWorkoutForm() {
   const dispatch = useDispatch();
@@ -22,6 +23,13 @@ export default function EditWorkoutForm() {
   const history = useHistory();
   const { workoutId } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [editRep, setEditRep] = useState(false);
+  const [editName, setEditName] = useState(false);
+  const [editNameBut, setEditNameBut] = useState(false);
+  const [reps, setReps] = useState("");
+  const [weight, setWeight] = useState("");
+  const [exId, setExId] = useState("");
+  const [selectedRep, setSelectedRep] = useState(0);
 
   useEffect(() => {
     dispatch(workoutActions.getWorkoutThunk(workoutId)).then(() =>
@@ -44,12 +52,43 @@ export default function EditWorkoutForm() {
     const editedWorkout = await dispatch(
       workoutActions.editWorkoutThunk(workoutId, data)
     );
-    history.push(`/workouts/${workoutId}`);
+    if (editedWorkout) {
+      history.push(`/workouts/${workoutId}`);
+    }
+  };
+  const handleRepSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      workout_id: workoutId,
+      exercise_id: exId,
+      weight: weight,
+      repetitions: reps,
+    };
+
+    const editedRep = await dispatch(editRepThunk(selectedRep, data));
+    if (editedRep) {
+      history.push(`/workouts/${workoutId}/edit`);
+      setEditRep(false);
+      setSelectedRep(0);
+      dispatch(workoutActions.getWorkoutThunk(workoutId));
+    }
   };
   const deleteWorkout = () => {
     dispatch(workoutActions.deleteWorkoutThunk(workoutId));
     closeModal();
     history.push(`/workouts/`);
+  };
+  const handleEditRep = () => {
+    setEditRep(true);
+  };
+  const handleEditName = () => {
+    setEditName(true);
+  };
+  const handleSelectedRep = (id) => {
+    setSelectedRep(id);
+  };
+  const hideEditName = () => {
+    setEditNameBut(true);
   };
 
   return (
@@ -58,69 +97,141 @@ export default function EditWorkoutForm() {
         className="workouts-backtab"
         onClick={() => history.push(`/workouts/${workoutId}`)}
       >
-        Cancel
+        Exit
       </button>
-      <form
-        className="workout-edit-form"
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
-      >
-        <div className="workout-detail">
-          <input
-            className="workout-name-edit"
-            type="text"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            placeholder="Workout Name"
-          />
+      <div className="workout-detail">
+        <form
+          className="workout-edit-form"
+          onSubmit={handleSubmit}
+          encType="multipart/form-data"
+        >
+          {editName ? (
+            <div className="name-edit-div">
+              <input
+                className="workout-name-edit"
+                type="text"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                placeholder="Workout Name"
+              />
+              <button type="submit" className="confirm-name-workout">
+                <i class="fas fa-check"></i>
+              </button>
+            </div>
+          ) : (
+            <h1>{name}</h1>
+          )}
+          {editNameBut ? (
+            <></>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                handleEditName();
+                hideEditName();
+              }}
+              className="edit-name-workout"
+            >
+              <i className="fas fa-pen"></i>
+            </button>
+          )}
+        </form>
 
-          <p>{workout.created_at}</p>
-          <div className="workout-top-bar">
-            <p className="workout-name">name</p>
-            <p className="workout-weight">lbs</p>
-            <p className="workout-reps">reps</p>
-          </div>
-          {workout.workout_exercises &&
-            workout.workout_exercises.map((rep) => (
-              <div className="workout-ex-detail">
-                <p className="workout-name">{rep.exercise_name}</p>
-                <p className="workout-weight">{rep.weight}</p>
-                <p className="workout-reps">{rep.repetitions}</p>
-              </div>
-            ))}
+        <p>{workout.created_at}</p>
+        <div className="workout-top-bar">
+          <p className="workout-name">name</p>
+          <p className="workout-weight">lbs</p>
+          <p className="workout-reps">reps</p>
         </div>
-        <div>
-          <button className="confirm-edit-workout" type="submit">
-            Confirm
-          </button>
-          <OpenModalButton
-            type="button"
-            buttonText="DELETE"
-            className="delete-workout-button"
-            modalComponent={
-              <div className="delete-modal-workout">
-                <h1>Delete?</h1>
-                <div className="delete-buttons-workout">
+        {workout.workout_exercises &&
+          workout.workout_exercises.map((rep) => (
+            <div>
+              {editRep && selectedRep === rep.id ? (
+                <div>
+                  <div className="workout-ex-detail">
+                    <p className="workout-name">{rep.exercise_name}</p>
+                    <form
+                      className="rep-edit-form"
+                      onSubmit={handleRepSubmit}
+                      encType="multipart/form-data"
+                    >
+                      <div className="weight-edit">
+                        <input
+                          type="number"
+                          min={0.01}
+                          step="any"
+                          name="weight"
+                          placeholder="Weight"
+                          value={weight}
+                          onChange={(e) => setWeight(e.target.value)}
+                        />
+                      </div>
+                      <div className="rep-edit">
+                        <input
+                          type="number"
+                          min={1}
+                          name="repetitions"
+                          placeholder="Reps"
+                          value={reps}
+                          onChange={(e) => setReps(e.target.value)}
+                        />
+                      </div>
+                      <button className="confirm-edit-rep" type="submit">
+                        <i class="fas fa-check"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="workout-ex-detail">
+                    <p className="workout-name">{rep.exercise_name}</p>
+                    <p className="workout-weight">{rep.weight}</p>
+                    <p className="workout-reps">{rep.repetitions}</p>
+                  </div>
                   <button
-                    className="cancel-delete-workout"
-                    onClick={closeModal}
+                    type="button"
+                    onClick={() => {
+                      handleEditRep();
+                      handleSelectedRep(rep.id);
+                      setReps(rep.repetitions);
+                      setWeight(rep.weight);
+                      setExId(rep.exercise_id);
+                    }}
+                    className="edit-rep"
                   >
-                    Cancel
-                  </button>
-                  <button
-                    className="confirm-delete-workout"
-                    onClick={deleteWorkout}
-                  >
-                    Confirm
+                    <i className="fas fa-pen"></i>
                   </button>
                 </div>
+              )}
+            </div>
+          ))}
+      </div>
+      <div>
+        <OpenModalButton
+          type="button"
+          buttonText="DELETE"
+          className="delete-workout-button"
+          modalComponent={
+            <div className="delete-modal-workout">
+              <h1>Delete?</h1>
+              <div className="delete-buttons-workout">
+                <button className="cancel-delete-workout" onClick={closeModal}>
+                  Cancel
+                </button>
+                <button
+                  className="confirm-delete-workout"
+                  onClick={deleteWorkout}
+                >
+                  Confirm
+                </button>
               </div>
-            }
-          />
-        </div>
-      </form>
+            </div>
+          }
+        />
+      </div>
     </div>
   );
 }

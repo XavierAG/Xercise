@@ -116,20 +116,31 @@ export default function WorkoutModal() {
       name: name,
     };
 
-    const createdWorkout = await dispatch(postWorkoutThunk(data));
-    if (createdWorkout) {
-      let rep;
-      for (rep of repetitions) {
-        const repdata = {
-          workout_id: createdWorkout.id,
-          exercise_id: rep.exercise_id,
-          weight: rep.weight,
-          repetitions: rep.repetitions,
-        };
-        dispatch(postExerciseRepetitions(repdata));
+    try {
+      const createdWorkout = await dispatch(postWorkoutThunk(data));
+      if (createdWorkout) {
+        let rep;
+        for (rep of repetitions) {
+          const repdata = {
+            workout_id: createdWorkout.id,
+            exercise_id: rep.exercise_id,
+            weight: rep.weight,
+            repetitions: rep.repetitions,
+          };
+          dispatch(postExerciseRepetitions(repdata));
+        }
+        dispatch(getWorkoutsThunk());
+        closeModal();
       }
-      dispatch(getWorkoutsThunk());
-      closeModal();
+    } catch (errRes) {
+      if (Array.isArray(errRes.errors)) {
+        let errorsObj = {};
+        errRes.errors.forEach((err) => {
+          const [key, val] = err.split(" : ");
+          errorsObj[key] = val;
+        });
+        setErrors(errorsObj);
+      }
     }
   };
 

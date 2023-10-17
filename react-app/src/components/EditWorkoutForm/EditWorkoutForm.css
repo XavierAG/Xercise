@@ -1,5 +1,6 @@
 .workout-edit-form {
     display: flex;
+    align-items: center;
 }
 .workout-name-edit {
     width: 400px;
@@ -67,4 +68,25 @@
     background-color: white;
     cursor: pointer;
     font-size: 20px;
+}
+.weight-edit {
+    width: 80px;
+}
+.rep-edit {
+    width: 80px;
+}
+.edit-name-workout {
+    height: 40px;
+    width: 40px;
+    margin-left: 5px ;
+}
+.confirm-name-workout {
+    height: 40px;
+    width: 40px;
+    margin-left: 5px ;
+}
+.name-edit-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
