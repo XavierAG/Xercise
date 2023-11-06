@@ -10,7 +10,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    background-color: rgb(229,229,229);
+    min-height: 89vh;
 }
 
 .exercise-img {
@@ -21,12 +22,13 @@
 .map-exercise {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 1px solid gray;
     border-radius: 20px;
     padding: 20px;
     flex-basis: 25%;
     text-decoration: none;
     color: black;
+    background-color: white;
     max-height: 520px;
     min-height: 520px;
     max-width: 492px;
@@ -49,9 +51,8 @@
     width: 120px;
     display: flex;
     justify-content: center;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    background-color: rgba(222, 81, 49, 0.5);
+    border: 1px solid rgba(222, 81, 49);
+    border-radius: 4px;
 }
 
 .create-exercise-cont button {
@@ -60,11 +61,12 @@
     height: 40px;
     border-radius: 8px;
     font-size: 18px;
-    background-color: rgb(224, 112, 98);
+    background-color: rgb(222, 81, 49);
     cursor: pointer;
 }
 
 .create-exercise-cont button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
