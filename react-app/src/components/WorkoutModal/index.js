@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import * as exerciseActions from "../../store/exercises";
 import { getWorkoutsThunk, postWorkoutThunk } from "../../store/workouts";
 import { postExerciseRepetitions } from "../../store/reps";
+import { v4 as uuidv4 } from "uuid";
 import "./WorkoutModal.css";
 
 export default function WorkoutForm() {
   const [name, setName] = useState("");
   const [errors, setErrors] = useState({});
+  const [exId, setExId] = useState(0);
   const [i, setI] = useState(0);
   const [addExercises, setAddExercises] = useState([]);
   const [singleExercise, setSingleExercise] = useState({});
@@ -183,7 +185,12 @@ export default function WorkoutForm() {
                 ).map((er) => er.exercise_id);
                 return (
                   <div className="workout-set-bar">
-                    <h1 key={selectedExercise.id}>{selectedExercise.name}</h1>
+                    <h1 key={selectedExercise.id}>
+                      {selectedExercise.category === "barbell" ||
+                      selectedExercise.category === "dumbbell"
+                        ? `${selectedExercise.name} (${selectedExercise.category})`
+                        : selectedExercise.name}
+                    </h1>
                     <div className="inputs-workout">
                       <div>
                         <p>sets</p>
@@ -279,9 +286,13 @@ export default function WorkoutForm() {
               >
                 <option value="">Select an exercise</option>
                 {exercises
-                  // .filter((exercise) => !wMap[exercise.id])
+                  .filter((exercise) => !wMap[exercise.id])
                   .map((exercise) => (
-                    <option key={exercise.id} value={exercise.id}>
+                    <option
+                      key={exercise.id}
+                      value={exercise.id}
+                      onSelect={exId}
+                    >
                       {exercise.category === "barbell" ||
                       exercise.category === "dumbbell"
                         ? `${exercise.name} (${exercise.category})`

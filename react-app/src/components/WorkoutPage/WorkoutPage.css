@@ -37,7 +37,7 @@
     flex-direction: column;
     align-items: center;
     background-color: rgb(229,229,229);
-    height: 100%;
+    min-height: 89vh;
 }
 .workout-ex-detail-main {
     display: flex;
