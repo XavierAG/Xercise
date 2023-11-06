@@ -1,11 +1,22 @@
 .workout-modal-full{
     display: flex;
-    width: 500px;
-    height: 600px;
+    width: 800px;
+    min-height: 500px;
+    max-height: 100%;
     padding: 20px;
     align-items: center;
     flex-direction: column;
-    overflow: scroll;
+    border: 1px solid gray;
+    border-radius: 20px;
+    background-color: white;
+}
+.workout-form-full-page {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(229,229,229);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 88vh;
 }
 .workout-modal-full::-webkit-scrollbar{
     width: 0.1em;
@@ -54,7 +65,7 @@
     width: 400px;
     height: 30px;
     border-radius: 8px;
-    background-color: lightgray;
+    background-color: white;
     font-size: 16px;
     cursor: pointer;
 }

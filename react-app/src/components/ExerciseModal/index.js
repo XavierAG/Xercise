@@ -36,6 +36,7 @@ export default function ExerciseModal() {
       data = {
         name: name,
         body_part: bodyPart,
+        description: description,
         category: category,
         owner_id: sessionUser.id,
       };
@@ -120,6 +121,22 @@ export default function ExerciseModal() {
             </select>
           </div>
           {errors.category && <p className="error-text">{errors.category}</p>}
+        </div>
+        <div className="exercise-description">
+          <label>Description</label>
+          <textarea
+            type="text"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            placeholder="Exercise Description"
+          />
+        </div>
+        <div className="error-container">
+          {errors.description && (
+            <p className="error-text">{errors.description}</p>
+          )}
         </div>
         <div className="image_url">
           <label>Exercise Image</label>

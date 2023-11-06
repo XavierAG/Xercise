@@ -12,6 +12,7 @@
     align-items: center;
     width: 500px;
     min-width: 500px;
+    background-color: white;
 }
 .nav-to-workout::-webkit-scrollbar {
     width: 0.1em;
@@ -35,7 +36,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
+    background-color: rgb(229,229,229);
+    height: 100%;
 }
 .workout-ex-detail-main {
     display: flex;
@@ -78,6 +80,11 @@
     height: 40px;
     border-radius: 8px;
     font-size: 18px;
-    background-color: rgba(224, 112, 98);
+    background-color: rgba(222, 81, 49);
+    cursor: pointer;
+}
+
+.create-workout-button-main button:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }

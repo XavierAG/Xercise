@@ -1,4 +1,4 @@
-.landing-page {
+.top-landing {
     display: flex;
     flex-direction: row;
     flex: 1;
@@ -6,6 +6,18 @@
     justify-content: center;
     gap: 40px;
 }
+.landing-page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.about-me {
+    margin-top: 20px;
+}
+.about-me a{
+    margin: 15px
+}
+
 .mascot {
     width: 600px;
 }

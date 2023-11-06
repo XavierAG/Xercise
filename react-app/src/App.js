@@ -11,6 +11,7 @@ import ExerciseDetailPage from "./components/ExerciseDetailPage";
 import WorkoutDetailPage from "./components/WorkoutDetailPage";
 import Navigation from "./components/Navigation";
 import EditWorkoutForm from "./components/EditWorkoutForm";
+import WorkoutForm from "./components/WorkoutModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
         </Route>
         <Route exact path="/workouts">
           <WorkoutPage />
+        </Route>
+        <Route exact path="/workouts/create">
+          <WorkoutForm />
         </Route>
         <Route exact path="/workouts/:workoutId">
           <WorkoutDetailPage />

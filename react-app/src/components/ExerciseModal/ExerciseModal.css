@@ -1,6 +1,6 @@
 .create-exercise-form {
     width: 500px;
-    height: 500px;
+    height: 540px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,6 +8,12 @@
     margin-top: 10px;
 }
 .exercise-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.exercise-description {
     display: flex;
     align-items: center;
     justify-content: space-between;

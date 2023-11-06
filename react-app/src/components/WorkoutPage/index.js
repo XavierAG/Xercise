@@ -21,15 +21,6 @@ export default function WorkoutPage() {
 
   return (
     <div className="workouts-container-full">
-      <div className="create-workout-button-main">
-        {sessionUser && (
-          <OpenModalButton
-            className="create-workout"
-            buttonText="CREATE NEW WORKOUT"
-            modalComponent={<WorkoutModal />}
-          />
-        )}
-      </div>
       <div className="workouts-container">
         {sessionUser &&
           workouts.length > 0 &&

@@ -21,12 +21,20 @@ function Navigation({ isLoaded }) {
           </div>
         </NavLink>
         {sessionUser && (
-          <NavLink className="nav-nav" exact to="/workouts">
-            <div className="button-wrapper">
-              <div className="button-top">Workouts</div>
-              <div className="button-outline"></div>
-            </div>
-          </NavLink>
+          <div className="workouts-nav">
+            <NavLink className="nav-nav" exact to="/workouts">
+              <div className="button-wrapper">
+                <div className="button-top">History</div>
+                <div className="button-outline"></div>
+              </div>
+            </NavLink>
+            <NavLink className="nav-nav" exact to="/workouts/create">
+              <div className="button-wrapper">
+                <div className="button-top">Start Workout</div>
+                <div className="button-outline"></div>
+              </div>
+            </NavLink>
+          </div>
         )}
       </li>
       {isLoaded && (

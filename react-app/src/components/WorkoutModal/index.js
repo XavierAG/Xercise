@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as exerciseActions from "../../store/exercises";
-import { useModal } from "../../context/Modal";
 import { getWorkoutsThunk, postWorkoutThunk } from "../../store/workouts";
 import { postExerciseRepetitions } from "../../store/reps";
 import "./WorkoutModal.css";
 
-export default function WorkoutModal() {
-  const { closeModal } = useModal();
+export default function WorkoutForm() {
   const [name, setName] = useState("");
   const [errors, setErrors] = useState({});
   const [i, setI] = useState(0);
@@ -130,7 +128,7 @@ export default function WorkoutModal() {
           dispatch(postExerciseRepetitions(repdata));
         }
         dispatch(getWorkoutsThunk());
-        closeModal();
+        history.push(`/workouts/${createdWorkout.id}`);
       }
     } catch (errRes) {
       if (Array.isArray(errRes.errors)) {
@@ -145,198 +143,205 @@ export default function WorkoutModal() {
   };
 
   return (
-    <div className="workout-modal-full">
-      <div>
-        <h2>Create Workout</h2>
-      </div>
-
-      <form className="workout-modal-form" onSubmit={handleSubmit}>
-        <div className="workout-name-page">
-          <input
-            className="workout-name-create"
-            type="text"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-          <div className="error-container">
-            {errors.name && <p className="error-text">{errors.name}</p>}
-          </div>
-        </div>
+    <div className="workout-form-full-page">
+      <div className="workout-modal-full">
         <div>
-          {addExercises.length > 0 &&
-            addExercises.map((ex) => {
-              const selectedExercise = exercises.find(
-                (exercise) => exercise.id == ex.exercise_id
-              );
-              const workoutRepetitions = {};
-              repetitions.forEach((repetition) => {
-                if (repetition.exercise_id === selectedExercise.id) {
-                  if (!workoutRepetitions[repetition.exercise_id]) {
-                    workoutRepetitions[repetition.exercise_id] = [];
-                  }
-                  workoutRepetitions[repetition.exercise_id].push(repetition);
-                }
-              });
-              const idEx = (workoutRepetitions[selectedExercise.id] || []).map(
-                (er) => er.exercise_id
-              );
-              return (
-                <div className="workout-set-bar">
-                  <h1 key={selectedExercise.id}>{selectedExercise.name}</h1>
-                  <div className="inputs-workout">
-                    <div>
-                      <p>sets</p>
-                    </div>
-                    <div>
-                      <p className="weight-column">weight</p>
-                    </div>
-                    <div>
-                      <p className="rep-column">reps</p>
-                    </div>
-                  </div>
-                  {workoutRepetitions[selectedExercise.id] &&
-                    workoutRepetitions[selectedExercise.id].map(
-                      (repetition, index) => (
-                        <div className="inputs-workout" key={index}>
-                          <div className="index">{repetition.newIndex + 1}</div>
-                          <div>
-                            <input
-                              type="number"
-                              min={0.01}
-                              step="any"
-                              name="weight"
-                              placeholder="Weight"
-                              value={repetition.weight}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  selectedExercise.id,
-                                  idEx[0],
-                                  index,
-                                  e
-                                )
-                              }
-                            />
-                          </div>
-                          <div>
-                            <input
-                              type="number"
-                              min={1}
-                              name="repetitions"
-                              placeholder="Reps"
-                              value={repetition.repetitions}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  selectedExercise.id,
-                                  idEx[0],
-                                  index,
-                                  e
-                                )
-                              }
-                            />
-                          </div>
-                        </div>
-                      )
-                    )}
-                  <div className="add-set-button">
-                    {selectedExercises == selectedExercise.id ? (
-                      <button
-                        type="button"
-                        onClick={async () => {
-                          await handleAddSet({ id: selectedExercise.id, i: i });
-                        }}
-                      >
-                        Add Set
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={async () => {
-                          setSelectedExercises(selectedExercise.id);
-                        }}
-                      >
-                        Edit
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+          <h2>Create Workout</h2>
         </div>
-        {showExerciseOptions ? (
-          <div className="exercise-options">
-            <select
-              name="exercise_id"
-              onChange={(e) => {
-                pickedExercise(e);
-                handleExerciseSelect(e);
-              }}
-            >
-              <option value="">Select an exercise</option>
-              {exercises
-                .filter((exercise) => !wMap[exercise.id])
-                .map((exercise) => (
-                  <option key={exercise.id} value={exercise.id}>
-                    {exercise.category === "barbell" ||
-                    exercise.category === "dumbbell"
-                      ? `${exercise.name} (${exercise.category})`
-                      : exercise.name}
-                  </option>
-                ))}
-            </select>
-          </div>
-        ) : (
-          <div>
-            {(!wMap || exercises.some((exercise) => !wMap[exercise.id])) && (
-              <div className="add-exercise-button">
-                <button type="button" onClick={handleAddExercise}>
-                  Add Exercise
-                </button>
-              </div>
-            )}
-          </div>
-        )}
 
-        {repetitions.some(
-          (rep) => rep.exercise_id && rep.weight && rep.repetitions
-        ) ? (
-          <div className="create-workout-button">
-            {confirmSubmit && (
-              <div className="workout-create-container">
-                <p className="error-text">
-                  Any empty or incomplete sets will be removed confirm?
-                </p>
-                <div className="confirm-cancel-workout">
-                  <button
-                    className="cancel-create"
-                    type="button"
-                    onClick={cancelConfirm}
-                  >
-                    Cancel
-                  </button>
-                  <button className="confirm-create" type="submit">
-                    Confirm
+        <form className="workout-modal-form" onSubmit={handleSubmit}>
+          <div className="workout-name-page">
+            <input
+              className="workout-name-create"
+              type="text"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+            <div className="error-container">
+              {errors.name && <p className="error-text">{errors.name}</p>}
+            </div>
+          </div>
+          <div>
+            {addExercises.length > 0 &&
+              addExercises.map((ex) => {
+                const selectedExercise = exercises.find(
+                  (exercise) => exercise.id == ex.exercise_id
+                );
+                const workoutRepetitions = {};
+                repetitions.forEach((repetition) => {
+                  if (repetition.exercise_id === selectedExercise.id) {
+                    if (!workoutRepetitions[repetition.exercise_id]) {
+                      workoutRepetitions[repetition.exercise_id] = [];
+                    }
+                    workoutRepetitions[repetition.exercise_id].push(repetition);
+                  }
+                });
+                const idEx = (
+                  workoutRepetitions[selectedExercise.id] || []
+                ).map((er) => er.exercise_id);
+                return (
+                  <div className="workout-set-bar">
+                    <h1 key={selectedExercise.id}>{selectedExercise.name}</h1>
+                    <div className="inputs-workout">
+                      <div>
+                        <p>sets</p>
+                      </div>
+                      <div>
+                        <p className="weight-column">weight</p>
+                      </div>
+                      <div>
+                        <p className="rep-column">reps</p>
+                      </div>
+                    </div>
+                    {workoutRepetitions[selectedExercise.id] &&
+                      workoutRepetitions[selectedExercise.id].map(
+                        (repetition, index) => (
+                          <div className="inputs-workout" key={index}>
+                            <div className="index">
+                              {repetition.newIndex + 1}
+                            </div>
+                            <div>
+                              <input
+                                type="number"
+                                min={0.01}
+                                step="any"
+                                name="weight"
+                                placeholder="Weight"
+                                value={repetition.weight}
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    selectedExercise.id,
+                                    idEx[0],
+                                    index,
+                                    e
+                                  )
+                                }
+                              />
+                            </div>
+                            <div>
+                              <input
+                                type="number"
+                                min={1}
+                                name="repetitions"
+                                placeholder="Reps"
+                                value={repetition.repetitions}
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    selectedExercise.id,
+                                    idEx[0],
+                                    index,
+                                    e
+                                  )
+                                }
+                              />
+                            </div>
+                          </div>
+                        )
+                      )}
+                    <div className="add-set-button">
+                      {selectedExercises == selectedExercise.id ? (
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            await handleAddSet({
+                              id: selectedExercise.id,
+                              i: i,
+                            });
+                          }}
+                        >
+                          Add Set
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            setSelectedExercises(selectedExercise.id);
+                          }}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          {showExerciseOptions ? (
+            <div className="exercise-options">
+              <select
+                name="exercise_id"
+                onChange={(e) => {
+                  pickedExercise(e);
+                  handleExerciseSelect(e);
+                }}
+              >
+                <option value="">Select an exercise</option>
+                {exercises
+                  // .filter((exercise) => !wMap[exercise.id])
+                  .map((exercise) => (
+                    <option key={exercise.id} value={exercise.id}>
+                      {exercise.category === "barbell" ||
+                      exercise.category === "dumbbell"
+                        ? `${exercise.name} (${exercise.category})`
+                        : exercise.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          ) : (
+            <div>
+              {(!wMap || exercises.some((exercise) => !wMap[exercise.id])) && (
+                <div className="add-exercise-button">
+                  <button type="button" onClick={handleAddExercise}>
+                    Add Exercise
                   </button>
                 </div>
-              </div>
-            )}
-            {!confirmSubmit && (
-              <button
-                className="create-workout-button-a"
-                cratype="button"
-                onClick={handleConfirm}
-              >
-                Create
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className="cancel-workout-button">
-            <button onClick={closeModal}>Cancel</button>
-          </div>
-        )}
-      </form>
+              )}
+            </div>
+          )}
+
+          {repetitions.some(
+            (rep) => rep.exercise_id && rep.weight && rep.repetitions
+          ) ? (
+            <div className="create-workout-button">
+              {confirmSubmit && (
+                <div className="workout-create-container">
+                  <p className="error-text">
+                    Any empty or incomplete sets will be removed confirm?
+                  </p>
+                  <div className="confirm-cancel-workout">
+                    <button
+                      className="cancel-create"
+                      type="button"
+                      onClick={cancelConfirm}
+                    >
+                      Cancel
+                    </button>
+                    <button className="confirm-create" type="submit">
+                      Confirm
+                    </button>
+                  </div>
+                </div>
+              )}
+              {!confirmSubmit && (
+                <button
+                  className="create-workout-button-a"
+                  cratype="button"
+                  onClick={handleConfirm}
+                >
+                  Create
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="cancel-workout-button">
+              <button onClick={() => history.push("/")}>Cancel</button>
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
