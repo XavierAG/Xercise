@@ -28,8 +28,12 @@ export default function LandingPage() {
         </div>
       </div>
       <div className="about-me">
-        <a href="https://github.com/XavierAG">GITHUB</a>
-        <a href="https://www.linkedin.com/in/xavier-guzman/">LINKEDIN</a>
+        <a href="https://github.com/XavierAG">
+          <i className="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/xavier-guzman/">
+          <i className="fa-brands fa-linkedin"></i>
+        </a>
       </div>
     </div>
   );

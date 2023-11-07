@@ -17,6 +17,10 @@
 .about-me a{
     margin: 15px
 }
+.about-me i{
+    font-size: 40px;
+    color: black;
+}
 
 .mascot {
     width: 600px;
