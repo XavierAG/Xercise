@@ -31,7 +31,7 @@ function LoginFormModal() {
     e.preventDefault();
     const email = "xercisedemo@gmail.com";
     const password = "xercisepassword";
-    dispatch(login(email, password));
+    const data = await dispatch(login(email, password));
     closeModal();
   };
 
