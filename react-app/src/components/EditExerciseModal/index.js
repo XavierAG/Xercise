@@ -188,11 +188,11 @@ export default function EditExerciseModal({ exerciseId }) {
           )}
           {imageLoading && <p className="exercise-image-load">LOADING...</p>}
         </div>
-        <button className="cancel-create-exercise" onClick={closeModal}>
-          Cancel
-        </button>
         <button className="create-exercise-button" type="submit">
           Confirm
+        </button>
+        <button className="cancel-create-exercise" onClick={closeModal}>
+          Cancel
         </button>
         <OpenModalButton
           className="delete-exercise-button-main"

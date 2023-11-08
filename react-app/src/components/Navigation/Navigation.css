@@ -28,12 +28,9 @@
 }
 
 .nav-bar {
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 40px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  height: 11vh;
 }
 
 .left-bar {
@@ -77,4 +74,11 @@
 .workouts-nav {
   display: flex;
   flex-direction: row;
+}
+
+.profile-i {
+  background-color: rgba(222, 69, 49);
+}
+.profile-i i{
+  font-size: 18px;
 }

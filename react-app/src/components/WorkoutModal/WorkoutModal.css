@@ -16,7 +16,7 @@
     background-color: rgb(229,229,229);
     padding-top: 20px;
     padding-bottom: 20px;
-    min-height: 88vh;
+    min-height: 89vh;
 }
 .workout-modal-full::-webkit-scrollbar{
     width: 0.1em;
