@@ -27,7 +27,8 @@ function LoginFormModal() {
       closeModal();
     }
   };
-  const demoUser = async () => {
+  const demoUser = async (e) => {
+    e.preventDefault();
     const email = "xercisedemo@gmail.com";
     const password = "xercisepassword";
     dispatch(login(email, password));
